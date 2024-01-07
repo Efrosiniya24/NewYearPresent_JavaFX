@@ -16,10 +16,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
-public class MenuAdminWork {
+public class RemoveFromMenuController {
 
     @FXML
     private ResourceBundle resources;
@@ -35,6 +36,9 @@ public class MenuAdminWork {
 
     @FXML
     private Button addButton;
+
+    @FXML
+    private TextField categoryLable;
 
     @FXML
     private Button changeButton;
@@ -61,7 +65,13 @@ public class MenuAdminWork {
     private TableColumn<?, ?> nameMarshmallow;
 
     @FXML
+    private TextField nameOfCandyLable;
+
+    @FXML
     private TableColumn<?, ?> nameSweet;
+
+    @FXML
+    private Button submitLable;
 
     @FXML
     private Tab sweetColumn;
@@ -95,7 +105,7 @@ public class MenuAdminWork {
 
     @FXML
     void Entry(ActionEvent event) {
-
+        NewYearApplication.menuWork();
     }
 
     @FXML
@@ -109,13 +119,12 @@ public class MenuAdminWork {
     }
 
     @FXML
-    void removeFromMenu(ActionEvent event) {
+    void removeFromMenuController(ActionEvent event) {
         NewYearApplication.showRemovingFromMenu();
     }
 
-
     @FXML
-    public void initialize() {
+    void initialize() {
         List<All> all = new ArrayList<>();
 
         try {
@@ -149,7 +158,7 @@ public class MenuAdminWork {
                         candyObservableList.addAll(biscuit.view(all));
                         nameBiscuit.setCellValueFactory(new PropertyValueFactory<>("name"));
                         weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableSweet.setItems(candyObservableList);
+                        tableBiscuit.setItems(candyObservableList);
                     }
                     case "Конфеты" -> {
                         All sweet = new Sweet();
@@ -163,31 +172,52 @@ public class MenuAdminWork {
         });
     }
 
-        public void entry() {
-            NewYearApplication.showMainAdmin();
+    @FXML
+    public void submit() throws IOException, ClassNotFoundException {
+        List<All> all = new ArrayList<>();
+        try {
+            all.addAll(Serializator.deserialization());
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Ошибка ввода-вывода\n");
         }
+        String category = categoryLable.getText().toLowerCase();
+        switch (category) {
+            case "печенье" -> {
+                All biscuit = new Biscuit();
+//                int num = biscuit.chooseNumber();
+//                if (num != -1)
+                    biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
+//                else
+//                    System.out.println("Печенья нет...");
+            }
+            case "шоколад" -> {
+                All chocolate = new Chocolate();
+                chocolate.delete(all, nameOfCandyLable.getText().toLowerCase());
+               }
+            case "конфеты" -> {
+               All sweet  = new Sweet();
+                sweet.delete(all, nameOfCandyLable.getText().toLowerCase());
+            }
+            case "зефир" -> {
+            All marshmallow = new Marshmallow();
+            marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
+            }
+        }
+        saveFile(all);
+        System.out.println(all);
+        NewYearApplication.showRemovingFromMenu();
+    }
+    public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {
+        List<All> all2 = new ArrayList<>();
 
+        try {
+            Serializator.serialization(all);
+            System.out.println("Данные записаны в файл");
+            return;
+        } catch (IOException e) {
+            System.err.println("Ошибка ввода-вывода\n");
+        }
+        all2.addAll(Serializator.deserialization());
 
-//        Tab column = new Tab();
-//        column.set
-//        button.setOnAction((ActionEvent event) -> {
-//            String column = button.getText();
-//            switch (column) {
-//                case "Зефир" -> all.add(facade.addMarshmallowMenu());
-//                case "Шоколад" -> all.add(facade.addChocolateMenu());
-//                case "Печенье" -> all.add(facade.addBiscuitMenu());
-//                case "Конфеты" -> all.add(facade.addSweetMenu();
-//            }
-//        });
-
-//        String column = Tab.;
-//        System.out.println(column);
-//        all.add(facade.addBiscuitMenu());
-//        List<User> usersList = MainAdmin.getUsers();
-//        ObservableList<User> userObservableList = FXCollections.observableArrayList(usersList);
-//        loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-//        roleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().getSimpleName()));
-//        accessColumn.setCellValueFactory(new PropertyValueFactory<>("hasAccess"));
-//        userTableView.setItems(userObservableList);
-
+    }
 }

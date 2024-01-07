@@ -100,13 +100,13 @@ public class Biscuit extends All implements Serializable {
     }
 
     @Override
-    public void delete(List<All> all, int i) {
+    public void delete(List<All> all, String name) {
         int u = 0;
         for (All alls : all)
             if (alls instanceof Biscuit) {
-                if (u == i) {
+                if (alls.getName().toLowerCase().equals(name)) {
                     all.remove(alls);
-                    break;
+                    return;
                 }
                 u++;
             }
@@ -164,23 +164,22 @@ public class Biscuit extends All implements Serializable {
     }
 
     public int chooseNumber() {
-        if (!biscuit.isEmpty()) {
-            Scanner sc = new Scanner(System.in);
-            int number;
-            while (true) {
-                System.out.print("Введите номер печенья: ");
-                try {
-                    number = sc.nextInt();
-                    if (number > biscuit.size())
-                        System.out.println("Такого печенья нет( Повторите ввод...");
-                    else break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Ошибка ввода( Повторите ввод: ");
-                }
-                sc.nextLine();
-            }
-            return number - 1;
-        }
+//        if (!biscuit.isEmpty()) {
+//            Scanner sc = new Scanner(System.in);
+//            while (true) {
+//                System.out.print("Введите номер печенья: ");
+//                try {
+//                    number = sc.nextInt();
+//                    if (number > biscuit.size())
+//                        System.out.println("Такого печенья нет( Повторите ввод...");
+//                    else break;
+//                } catch (InputMismatchException e) {
+//                    System.out.print("Ошибка ввода( Повторите ввод: ");
+//                }
+//                sc.nextLine();
+//            }
+//            return number - 1;
+//        }
         return -1;
     }
 

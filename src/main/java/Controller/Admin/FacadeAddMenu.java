@@ -4,31 +4,31 @@ import Model.Candy.*;
 
 public class FacadeAddMenu {
 
-    public All addBiscuitMenu() {
+    public All addBiscuitMenu(String name, double weight) {
         All biscuit = new Biscuit();
-        biscuit.setName(biscuit.addName());
-        biscuit.setWeight(biscuit.addWeight());
+        biscuit.setName(name);
+        biscuit.setWeight(weight);
         return biscuit;
     }
 
-    public All addChocolateMenu() {
+    public All addChocolateMenu(String name, double weight) {
         All chocolate = new Chocolate();
-        chocolate.setName(chocolate.addName());
-        chocolate.setWeight(chocolate.addWeight());
+        chocolate.setName(name);
+        chocolate.setWeight(weight);
         return chocolate;
     }
 
-    public All addMarshmallowMenu() {
+    public All addMarshmallowMenu(String name, double weight) {
         All marshmallow = new Marshmallow();
-        marshmallow.setName(marshmallow.addName());
-        marshmallow.setWeight(marshmallow.addWeight());
+        marshmallow.setName(name);
+        marshmallow.setWeight(weight);
         return marshmallow;
     }
 
-    public All addSweetMenu() {
+    public All addSweetMenu(String name, double weight) {
         All sweet = new Sweet();
-        sweet.setName(sweet.addName());
-        sweet.setWeight(sweet.addWeight());
+        sweet.setName(name);
+        sweet.setWeight(weight);
         return sweet;
     }
 }

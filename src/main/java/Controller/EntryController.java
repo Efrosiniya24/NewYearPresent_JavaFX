@@ -45,6 +45,7 @@ public class EntryController {
     void Entry(ActionEvent event) throws IOException, ClassNotFoundException, InterruptedException {
 
         String login = loginField.getText();
+        System.out.println(loginField.getText());
         String password = passwordField.getText();
 
         if (login.isEmpty() && password.isEmpty()) {

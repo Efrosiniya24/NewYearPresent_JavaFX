@@ -77,4 +77,16 @@ public class NewYearApplication extends Application {
             System.out.println(e);
         }
     }
+
+    public static void showRemovingFromMenu(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("removeFromMenu.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Удаление из меню");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

@@ -52,34 +52,8 @@ public abstract class All implements Serializable {
         this.weight = weight;
     }
 
-    public String addName() {
-        Scanner sc = new Scanner(System.in);
-        String name = null;
-        System.out.print("Введите название: ");
-        try {
-            name = sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.print("Ошибка ввода( Повторите ввод: ");
-        }
-        return name;
-    }
 
-    public double addWeight() {
-        Scanner sc = new Scanner(System.in);
-        double weight;
-        while (true) {
-            System.out.print("Введите массу: ");
-            try {
-                weight = sc.nextInt();
-                return weight;
-            } catch (InputMismatchException e) {
-                System.out.print("Ошибка ввода( Повторите ввод: ");
-                sc.nextLine();
-            }
-        }
-    }
-
-    public abstract void delete(List<All> all, int i);
+    public abstract void delete(List<All> all, String name);
 
     public abstract int chooseNumber();
 

@@ -82,11 +82,11 @@ public class Sweet extends All implements Serializable {
     }
 
     @Override
-    public void delete(List<All> all, int i) {
+    public void delete(List<All> all, String name) {
         int size = all.size();
         for (int u = 0; u < size; u++) {
             if (all.get(u) instanceof Sweet) {
-                if (u == i) {
+                if (all.get(u).getName().toLowerCase().equals(name)) {
                     all.remove(all.get(u));
                     return;
                 }

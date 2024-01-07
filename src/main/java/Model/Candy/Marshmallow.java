@@ -82,13 +82,13 @@ public class Marshmallow extends All implements Serializable {
     }
 
     @Override
-    public void delete(List<All> all, int i) {
+    public void delete(List<All> all, String name) {
         int u = 0;
         for (All alls : all)
             if (alls instanceof Marshmallow) {
-                if (u == i) {
+                if (alls.getName().toLowerCase().equals(name)) {
                     all.remove(alls);
-                    break;
+                    return;
                 }
                 u++;
             }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.ObservableList;
@@ -108,7 +109,7 @@ public class AddingToMenuController {
 
     @FXML
     void addToMenu(ActionEvent event) {
-        NewYearApplication.menuWork();
+        NewYearApplication.showAddingToMenu();
     }
 
     @FXML
@@ -118,7 +119,7 @@ public class AddingToMenuController {
 
     @FXML
     void removeFromMenu(ActionEvent event) {
-
+        NewYearApplication.showRemovingFromMenu();
     }
 
     @FXML
@@ -142,7 +143,7 @@ public class AddingToMenuController {
                         candyObservableList.addAll(marshmallow.view(all));
                         nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
                         weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableMarshmallow.setItems(candyObservableList);
+                        tableBiscuit.setItems(candyObservableList);
                     }
                     case "Шоколад" -> {
                         All chocolate = new Chocolate();
@@ -169,8 +170,55 @@ public class AddingToMenuController {
             }
         });
     }
+
     @FXML
-    public void submit(){
+    public void submit() throws IOException, ClassNotFoundException {
+        List<All> all = new ArrayList<>();
+        try {
+            all.addAll(Serializator.deserialization());
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Ошибка ввода-вывода\n");
+        }
+
+        String category = categoryLable.getText().toLowerCase();
+        switch (category) {
+            case "печенье" -> {
+                try {
+                    FacadeAddMenu facade = new FacadeAddMenu();
+                    all.add(facade.addBiscuitMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+            case "шоколад" -> {
+                FacadeAddMenu facade = new FacadeAddMenu();
+                all.add(facade.addChocolateMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
+            }
+            case "конфеты" -> {
+                FacadeAddMenu facade = new FacadeAddMenu();
+                all.add(facade.addSweetMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
+            }
+            case "зефир" -> {
+                FacadeAddMenu facade = new FacadeAddMenu();
+                all.add(facade.addMarshmallowMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
+            }
+        }
+        saveFile(all);
+        System.out.println(all);
+        NewYearApplication.showAddingToMenu();
+    }
+
+    public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {
+        List<All> all2 = new ArrayList<>();
+
+        try {
+            Serializator.serialization(all);
+            System.out.println("Данные записаны в файл");
+            return;
+        } catch (IOException e) {
+            System.err.println("Ошибка ввода-вывода\n");
+        }
+        all2.addAll(Serializator.deserialization());
 
     }
 
