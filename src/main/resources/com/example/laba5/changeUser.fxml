@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.ChangeUserController">
+    <children>
+        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@winter.jpg" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="22.0" layoutY="18.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+            <children>
+                <Label layoutX="75.0" layoutY="16.0" text="Изменение данных пользователя">
+                    <font>
+                        <Font name="Arial" size="33.0" />
+                    </font>
+                </Label>
+            <TableView fx:id="table" layoutX="28.0" layoutY="64.0" prefHeight="270.0" prefWidth="302.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
+              <columns>
+                <TableColumn fx:id="numberUserTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="№" />
+                <TableColumn fx:id="LoginTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="Логин" />
+                  <TableColumn fx:id="PasswordTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="Пароль" />
+                  <TableColumn fx:id="BanTable" prefWidth="75.99997558593748" style="-fx-border-radius: 20px; -fx-background-radius: 20px;" text="Бан" />
+              </columns>
+            </TableView>
+            <PasswordField fx:id="passwordField1" layoutX="352.0" layoutY="153.0" prefHeight="27.0" prefWidth="266.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></PasswordField>
+            <PasswordField fx:id="passwordField12" layoutX="352.0" layoutY="194.0" prefHeight="27.0" prefWidth="266.0" promptText="Повторный пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></PasswordField>
+            <TextField fx:id="loginField" layoutX="352.0" layoutY="112.0" prefHeight="27.0" prefWidth="266.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField fx:id="loginField1" layoutX="352.0" layoutY="73.0" prefHeight="27.0" prefWidth="266.0" promptText="Номер пользователя" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
