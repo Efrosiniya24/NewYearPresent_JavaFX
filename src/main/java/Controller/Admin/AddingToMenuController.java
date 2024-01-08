@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 
 public class AddingToMenuController {
 
+    public TableColumn banColumn;
+    public TableColumn lognInColumn;
     @FXML
     private ResourceBundle resources;
 
