@@ -104,17 +104,17 @@ public class AddingToMenuController {
 
     @FXML
     void Entry(ActionEvent event) {
-        NewYearApplication.menuWork();
+        NewYearApplication.showMainAdmin();
     }
 
     @FXML
     void addToMenu(ActionEvent event) {
-        NewYearApplication.showAddingToMenu();
+        NewYearApplication.menuWork();
     }
 
     @FXML
     void changeMenu(ActionEvent event) {
-
+        NewYearApplication.showChangingMenu();
     }
 
     @FXML

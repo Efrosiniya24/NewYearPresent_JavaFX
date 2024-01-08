@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.Candy.*;
@@ -20,8 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
-public class RemoveFromMenuController {
-
+public class ChangingMenuController {
+    @FXML
+    public TextField nameOfNewCandyLable;
     @FXML
     private ResourceBundle resources;
 
@@ -83,7 +85,7 @@ public class RemoveFromMenuController {
     private TableView<All> tableChocolate;
 
     @FXML
-    private TableView<?> tableMarshmallow;
+    private TableView<All> tableMarshmallow;
 
     @FXML
     private TabPane tableMenuAdmin;
@@ -101,6 +103,9 @@ public class RemoveFromMenuController {
     private TableColumn<?, ?> weightMarshmallow;
 
     @FXML
+    private TextField weightOfCandyLable;
+
+    @FXML
     private TableColumn<?, ?> weightSweet;
 
     @FXML
@@ -115,12 +120,124 @@ public class RemoveFromMenuController {
 
     @FXML
     void changeMenu(ActionEvent event) {
-        NewYearApplication.showChangingMenu();
+        NewYearApplication.menuWork();
     }
 
     @FXML
-    void removeFromMenuController(ActionEvent event) {
-        NewYearApplication.menuWork();
+    void removeFromMenu(ActionEvent event) {
+        NewYearApplication.showRemovingFromMenu();
+    }
+
+    @FXML
+    void submit(ActionEvent event) throws IOException, ClassNotFoundException {
+
+            List<All> all = new ArrayList<>();
+            try {
+                all.addAll(Serializator.deserialization());
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Ошибка ввода-вывода\n");
+            }
+        try {
+            String category = categoryLable.getText().toLowerCase();
+            switch (category) {
+                case "печенье" -> {
+                    All biscuit = new Biscuit();
+                    String candyName = nameOfCandyLable.getText();
+                    All foundCandy = null;
+
+                    for (All candy : all) {
+                        if (candy.getName().equals(candyName)) {
+                            foundCandy = candy;
+                            break;
+                        }
+                    }
+                    int num = all.indexOf(foundCandy);
+
+                    biscuit.setName(nameOfNewCandyLable.getText());
+                    biscuit.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                    all.set(num, biscuit);
+                }
+                case "шоколад" -> {
+                    All chocolate = new Chocolate();
+                    String candyName = nameOfCandyLable.getText();
+                    All foundCandy = null;
+
+                    for (All candy : all) {
+                        if (candy.getName().equals(candyName)) {
+                            foundCandy = candy;
+                            break;
+                        }
+                    }
+
+                    int num = all.indexOf(chocolate);
+
+                    chocolate.setName(nameOfNewCandyLable.getText());
+                    chocolate.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                    all.set(num, chocolate);
+                }
+                case "конфеты" -> {
+                    All sweet = new Sweet();
+
+                    String candyName = nameOfCandyLable.getText();
+                    All foundCandy = null;
+
+                    for (All candy : all) {
+                        if (candy.getName().equals(candyName)) {
+                            foundCandy = candy;
+                            break;
+                        }
+                    }
+
+                    int num = all.indexOf(sweet);
+
+                    sweet.setName(nameOfNewCandyLable.getText());
+                    sweet.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                    all.set(num, sweet);
+                }
+                case "зефир" -> {
+                    All marshmallow = new Marshmallow();
+                    String candyName = nameOfCandyLable.getText();
+                    All foundCandy = null;
+
+                    for (All candy : all) {
+                        if (candy.getName().equals(candyName)) {
+                            foundCandy = candy;
+                            break;
+                        }
+                    }
+
+                    int num = all.indexOf(marshmallow);
+
+                    marshmallow.setName(nameOfNewCandyLable.getText());
+                    marshmallow.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                    all.set(num, marshmallow);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        saveFile(all);
+        System.out.println(all);
+        NewYearApplication.showChangingMenu();
+
+    }
+
+    public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {
+        List<All> all2 = new ArrayList<>();
+
+        try {
+            Serializator.serialization(all);
+            System.out.println("Данные записаны в файл");
+            return;
+        } catch (IOException e) {
+            System.err.println("Ошибка ввода-вывода\n");
+        }
+        all2.addAll(Serializator.deserialization());
+
     }
 
     @FXML
@@ -144,7 +261,7 @@ public class RemoveFromMenuController {
                         candyObservableList.addAll(marshmallow.view(all));
                         nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
                         weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableBiscuit.setItems(candyObservableList);
+                        tableMarshmallow.setItems(candyObservableList);
                     }
                     case "Шоколад" -> {
                         All chocolate = new Chocolate();
@@ -170,54 +287,5 @@ public class RemoveFromMenuController {
                 }
             }
         });
-    }
-
-    @FXML
-    public void submit() throws IOException, ClassNotFoundException {
-        List<All> all = new ArrayList<>();
-        try {
-            all.addAll(Serializator.deserialization());
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Ошибка ввода-вывода\n");
-        }
-        String category = categoryLable.getText().toLowerCase();
-        switch (category) {
-            case "печенье" -> {
-                All biscuit = new Biscuit();
-//                int num = biscuit.chooseNumber();
-//                if (num != -1)
-                    biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
-//                else
-//                    System.out.println("Печенья нет...");
-            }
-            case "шоколад" -> {
-                All chocolate = new Chocolate();
-                chocolate.delete(all, nameOfCandyLable.getText().toLowerCase());
-               }
-            case "конфеты" -> {
-               All sweet  = new Sweet();
-                sweet.delete(all, nameOfCandyLable.getText().toLowerCase());
-            }
-            case "зефир" -> {
-            All marshmallow = new Marshmallow();
-            marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
-            }
-        }
-        saveFile(all);
-        System.out.println(all);
-        NewYearApplication.showRemovingFromMenu();
-    }
-    public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {
-        List<All> all2 = new ArrayList<>();
-
-        try {
-            Serializator.serialization(all);
-            System.out.println("Данные записаны в файл");
-            return;
-        } catch (IOException e) {
-            System.err.println("Ошибка ввода-вывода\n");
-        }
-        all2.addAll(Serializator.deserialization());
-
     }
 }

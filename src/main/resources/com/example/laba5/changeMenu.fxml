@@ -36,7 +36,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="changeButton" layoutX="374.0" layoutY="181.0" mnemonicParsing="false" onAction="#changeMenu" prefHeight="35.0" prefWidth="153.0" style="-fx-background-color: #7CB4DA;" text="Изменить">
+                <Button fx:id="changeButton"  layoutX="374.0" layoutY="181.0" mnemonicParsing="false" onAction="#changeMenu" prefHeight="35.0" prefWidth="153.0" style="-fx-background-color: #7CB4DA;" text="Изменить">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>

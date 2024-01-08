@@ -89,4 +89,15 @@ public class NewYearApplication extends Application {
             System.out.println(e);
         }
     }
+    public static void showChangingMenu(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("changingMenu.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Изменение меню");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }

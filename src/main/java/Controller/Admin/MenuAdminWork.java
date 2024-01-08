@@ -105,7 +105,7 @@ public class MenuAdminWork {
 
     @FXML
     void changeMenu(ActionEvent event) {
-
+        NewYearApplication.showChangingMenu();
     }
 
     @FXML
