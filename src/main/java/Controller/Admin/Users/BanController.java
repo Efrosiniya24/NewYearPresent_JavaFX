@@ -74,7 +74,7 @@ public class BanController {
         NewYearApplication.showChangingUsers();
     }
 
-    @FXMLЛ
+    @FXML
     public void banUsers(){
         NewYearApplication.showBunUsers();
     }
