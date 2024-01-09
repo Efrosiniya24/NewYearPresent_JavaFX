@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller.Admin.Menu;
 
 import Model.Candy.*;
 

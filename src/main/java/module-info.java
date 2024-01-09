@@ -9,4 +9,8 @@ module com.example.laba5 {
     opens Controller to javafx.fxml;
     exports Controller.Admin;
     opens Controller.Admin to javafx.fxml;
+    exports Controller.Admin.Menu;
+    opens Controller.Admin.Menu to javafx.fxml;
+    exports Controller.Admin.Users;
+    opens Controller.Admin.Users to javafx.fxml;
 }

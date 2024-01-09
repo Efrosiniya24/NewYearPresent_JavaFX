@@ -36,4 +36,9 @@ public class MainAdministratorController {
         NewYearApplication.menuWork();
     }
 
+    @FXML
+    void userWork() {
+        NewYearApplication.userWork();
+    }
+
 }

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.AddingToMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Users.UserAdminController">
     <children>
         <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -28,7 +28,7 @@
                         <Font name="Arial" size="33.0" />
                     </font>
                 </Label>
-                <Button fx:id="deleteButton" layoutX="374.0" layoutY="123.0" mnemonicParsing="false" onAction="#removeFromMenu" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Удалить пользователя">
+                <Button fx:id="deleteButton" layoutX="374.0" layoutY="123.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Удалить пользователя">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>
@@ -36,7 +36,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="bunButton" layoutX="374.0" layoutY="166.0" mnemonicParsing="false" onAction="#changeMenu" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Блокировать пользователя">
+                <Button fx:id="bunButton" layoutX="374.0" layoutY="166.0" onAction="#banUsers" mnemonicParsing="false" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Блокировать пользователя">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>
@@ -44,7 +44,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="changeButton" layoutX="374.0" layoutY="81.0" mnemonicParsing="false" onAction="#addToMenu" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Изменить данные">
+                <Button fx:id="changeButton" layoutX="374.0" layoutY="81.0" mnemonicParsing="false" onAction="#changingUsers" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Изменить данные">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>
@@ -74,9 +74,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="-5.0" layoutY="-1.0" prefHeight="200.0" prefWidth="254.0">
+                        <TableView fx:id="usersTable" layoutX="-5.0" layoutY="-1.0" prefHeight="200.0" prefWidth="254.0">
                           <columns>
-                            <TableColumn prefWidth="97.60003662109375" text="Пароль" />
+                            <TableColumn fx:id="passwordColumn" prefWidth="97.60003662109375" text="Пароль" />
                             <TableColumn fx:id="lognInColumn" prefWidth="83.19997501373291" text="Логин" />
                               <TableColumn fx:id="banColumn" prefWidth="44.80006408691406" text="Бан" />
                           </columns>

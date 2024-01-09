@@ -21,7 +21,7 @@ public class NewYearApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, ClassNotFoundException {
 //        List<User> user = new ArrayList<>();
 //        user.add(new Administrator("admin", "1111", false, null));
 //        SerializatorAuthorization.serialization(user);
@@ -95,6 +95,41 @@ public class NewYearApplication extends Application {
             Parent root = loader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Изменение меню");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void userWork(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("UsersAdmin.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Работа с пользователями");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public static void showChangingUsers(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("changeUser.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Изменение данных пользователей");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showBunUsers(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("banUser.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Блокировка пользователей");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e);

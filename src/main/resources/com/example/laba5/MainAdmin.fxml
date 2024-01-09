@@ -27,7 +27,7 @@
                   <Image url="@free-sticker-bear-image-6239463.png" />
                </image>
             </ImageView>
-            <Button fx:id="changeMenuButton" layoutX="69.0" layoutY="138.0" mnemonicParsing="false" onAction="#MenuWork" prefHeight="35.0" prefWidth="276.0" style="-fx-background-color: #7CB4DA;" text="Работа с меню">
+            <Button fx:id="changeMenuButton" layoutX="69.0" layoutY="138.0" mnemonicParsing="false" onAction="#MenuWork" prefHeight="35.0" prefWidth="287.0" style="-fx-background-color: #7CB4DA;" text="Работа с меню">
                <font>
                   <Font name="Arial" size="16.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="changeUsersButton" layoutX="69.0" layoutY="203.0" mnemonicParsing="false" onAction="#Entry" prefHeight="35.0" prefWidth="276.0" style="-fx-background-color: #7CB4DA;" text="Работа с данными пользователей">
+            <Button fx:id="changeUsersButton" layoutX="69.0" layoutY="203.0" mnemonicParsing="false" onAction="#userWork" prefHeight="35.0" prefWidth="287.0" style="-fx-background-color: #7CB4DA;" text="Работа с данными пользователей">
                <font>
                   <Font name="Arial" size="16.0" />
                </font>

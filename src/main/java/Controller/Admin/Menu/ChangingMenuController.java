@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller.Admin.Menu;
 
 import java.io.IOException;
 import java.net.URL;

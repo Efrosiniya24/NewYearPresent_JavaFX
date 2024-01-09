@@ -57,4 +57,13 @@ public abstract class User implements Serializable {
 
     public abstract User reviewMenu(User user) throws InterruptedException, IOException, ClassNotFoundException;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", ban=" + ban +
+                ", present=" + present +
+                '}';
+    }
 }

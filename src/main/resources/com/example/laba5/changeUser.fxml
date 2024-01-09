@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.AmbientLight?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.ChangeUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Users.ChangeUserController">
     <children>
         <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -20,37 +25,80 @@
         </ImageView>
         <AnchorPane layoutX="22.0" layoutY="18.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
             <children>
-                <Label layoutX="75.0" layoutY="16.0" text="Изменение данных пользователя">
+                <Label layoutX="209.0" layoutY="26.0" text="Пользователи">
                     <font>
                         <Font name="Arial" size="33.0" />
                     </font>
                 </Label>
-            <TableView fx:id="table" layoutX="28.0" layoutY="64.0" prefHeight="270.0" prefWidth="302.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
-              <columns>
-                <TableColumn fx:id="numberUserTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="№" />
-                <TableColumn fx:id="LoginTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="Логин" />
-                  <TableColumn fx:id="PasswordTable" prefWidth="75.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;" text="Пароль" />
-                  <TableColumn fx:id="BanTable" prefWidth="75.99997558593748" style="-fx-border-radius: 20px; -fx-background-radius: 20px;" text="Бан" />
-              </columns>
-            </TableView>
-            <PasswordField fx:id="passwordField1" layoutX="352.0" layoutY="153.0" prefHeight="27.0" prefWidth="266.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+                <Button fx:id="deleteButton" layoutX="374.0" layoutY="257.0" mnemonicParsing="false"  prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Удалить пользователя">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="bunButton" layoutX="374.0" layoutY="299.0" onAction="#banUsers" mnemonicParsing="false"  prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Блокировать пользователя">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="changeButton" layoutX="374.0" layoutY="81.0" mnemonicParsing="false" onAction="#changeUsers" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Изменить данные">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@free-icon-exit-2001034.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#Entry" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <AmbientLight color="CHARTREUSE" layoutX="116.0" layoutY="36.0" lightOn="true" />
+                <AmbientLight layoutX="364.0" layoutY="35.0" lightOn="true">
+                    <color>
+                        <Color red="0.5240740776062012" green="1.0" blue="0.04814814776182175" />
+                    </color>
+                </AmbientLight>
+                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-31.659912109375" startY="7.62939453125E-6" />
+                <Line endX="100.0" layoutX="87.0" layoutY="46.0" startX="-31.659912109375" startY="7.62939453125E-6" />
+                <ScrollPane layoutX="45.0" layoutY="80.0" prefHeight="200.0" prefWidth="263.0">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="usersTable" layoutX="-5.0" layoutY="-1.0" prefHeight="200.0" prefWidth="254.0">
+                                    <columns>
+                                        <TableColumn fx:id="passwordColumn" prefWidth="97.60003662109375" text="Пароль" />
+                                        <TableColumn fx:id="lognInColumn" prefWidth="83.19997501373291" text="Логин" />
+                                        <TableColumn fx:id="banColumn" prefWidth="44.80006408691406" text="Бан" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            <TextField fx:id="loginLable" layoutX="374.0" layoutY="123.0" prefHeight="27.0" prefWidth="226.0" promptText="Логин пользователя" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
+            <TextField fx:id="newLoginLable" layoutX="374.0" layoutY="156.0" prefHeight="27.0" prefWidth="226.0" promptText="Новый логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
+            <PasswordField fx:id="newPasswordField" layoutX="326.0" layoutY="189.0" prefHeight="27.0" prefWidth="133.0" promptText="Новый пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
+            <PasswordField fx:id="repeatPasswordField" layoutX="467.0" layoutY="189.0" prefHeight="27.0" prefWidth="133.0" promptText="Повторите пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
+            <Button fx:id="submitLable" layoutX="374.0" layoutY="222.0" mnemonicParsing="false" onAction="#submit" prefHeight="27.0" prefWidth="226.0" style="-fx-background-color: #fafafa; -fx-border-color: #7CB4DA; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Сохранить">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
                <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></PasswordField>
-            <PasswordField fx:id="passwordField12" layoutX="352.0" layoutY="194.0" prefHeight="27.0" prefWidth="266.0" promptText="Повторный пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></PasswordField>
-            <TextField fx:id="loginField" layoutX="352.0" layoutY="112.0" prefHeight="27.0" prefWidth="266.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
+                  <Cursor fx:constant="HAND" />
                </cursor>
-            </TextField>
-            <TextField fx:id="loginField1" layoutX="352.0" layoutY="73.0" prefHeight="27.0" prefWidth="266.0" promptText="Номер пользователя" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
+            </Button>
             </children>
         </AnchorPane>
     </children>

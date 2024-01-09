@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller.Admin.Users;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class BanUserController {
+public class deleteUser {
 
     @FXML
     private ResourceBundle resources;
@@ -35,6 +35,7 @@ public class BanUserController {
 
     @FXML
     void initialize() {
+
     }
 
 }

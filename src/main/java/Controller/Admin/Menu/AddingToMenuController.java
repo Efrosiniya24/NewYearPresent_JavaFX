@@ -1,4 +1,4 @@
-package Controller.Admin;
+package Controller.Admin.Menu;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,8 +18,6 @@ import javafx.scene.image.ImageView;
 
 public class AddingToMenuController {
 
-    public TableColumn banColumn;
-    public TableColumn lognInColumn;
     @FXML
     private ResourceBundle resources;
 
@@ -145,7 +143,7 @@ public class AddingToMenuController {
                         candyObservableList.addAll(marshmallow.view(all));
                         nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
                         weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableBiscuit.setItems(candyObservableList);
+                        tableMarshmallow.setItems(candyObservableList);
                     }
                     case "Шоколад" -> {
                         All chocolate = new Chocolate();
