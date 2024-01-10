@@ -29,7 +29,7 @@
                         <Font name="Arial" size="33.0" />
                     </font>
                 </Label>
-                <Button fx:id="deleteButton" layoutX="374.0" layoutY="123.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Удалить пользователя">
+                <Button fx:id="deleteButton" layoutX="374.0" layoutY="123.0" mnemonicParsing="false" onAction="#deleteUsers" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Удалить пользователя">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>
@@ -37,7 +37,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="bunButton" layoutX="374.0" layoutY="166.0" onAction="#banUsers" mnemonicParsing="false" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Блокировать пользователя">
+                <Button fx:id="bunButton" layoutX="374.0" layoutY="166.0" mnemonicParsing="false" onAction="#banUsers" prefHeight="35.0" prefWidth="226.0" style="-fx-background-color: #7CB4DA;" text="Блокировать пользователя">
                     <font>
                         <Font name="Arial" size="16.0" />
                     </font>

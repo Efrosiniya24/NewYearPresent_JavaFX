@@ -2,21 +2,17 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import Model.Candy.All;
 import Model.User.IteratorUser;
-import Model.User.SerializatorAuthorization;
 import Model.User.User;
 import Model.User.UserFactory;
 import com.example.laba5.NewYearApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 public class EntryController {
 
@@ -39,6 +35,11 @@ public class EntryController {
     private Hyperlink regestrationLink;
 
     private static int indexUser = -1;
+
+    @FXML
+    public void registration(){
+        NewYearApplication.showRegistration();
+    }
 
 
     @FXML

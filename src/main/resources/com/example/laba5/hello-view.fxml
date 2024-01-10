@@ -22,7 +22,7 @@
          <children>
             <TextField fx:id="loginField" layoutX="58.0" layoutY="125.0" prefHeight="27.0" prefWidth="307.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;" />
             <PasswordField fx:id="passwordField" layoutX="58.0" layoutY="82.0" prefHeight="27.0" prefWidth="307.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
-            <Button fx:id="EntryButton" onAction="#Entry" layoutX="112.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="199.0" style="-fx-background-color: #7CB4DA;" text="Войти">
+            <Button fx:id="EntryButton" layoutX="112.0" layoutY="171.0" mnemonicParsing="false" onAction="#Entry" prefHeight="35.0" prefWidth="199.0" style="-fx-background-color: #7CB4DA;" text="Войти">
                <font>
                   <Font name="Arial" size="19.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Font name="Arial" size="33.0" />
                </font>
             </Label>
-            <Hyperlink fx:id="regestrationLink" layoutX="202.0" layoutY="214.0" text="Зарегистрируйся)!" textFill="#7cb4da" />
+            <Hyperlink fx:id="regestrationLink" layoutX="202.0" layoutY="214.0" onAction="#registration" text="Зарегистрируйся)!" textFill="#7cb4da" />
             <Label layoutX="115.0" layoutY="218.0" text="Нет аккаунта?">
                <font>
                   <Font name="Arial" size="12.0" />

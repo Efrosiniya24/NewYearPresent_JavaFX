@@ -1,4 +1,6 @@
-package Model.User;
+package Controller;
+
+import Model.User.User;
 
 import java.io.*;
 import java.util.List;

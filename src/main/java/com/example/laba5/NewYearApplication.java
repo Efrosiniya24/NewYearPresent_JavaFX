@@ -1,7 +1,6 @@
 package com.example.laba5;
 
-import Model.User.Administrator;
-import Model.User.SerializatorAuthorization;
+import Controller.SerializatorAuthorization;
 import Model.User.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -130,6 +129,30 @@ public class NewYearApplication extends Application {
             Parent root = loader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Блокировка пользователей");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showDeleteUsers(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("deleteUser.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Удаление пользователей");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showRegistration(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("registration.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Регистрация");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e);

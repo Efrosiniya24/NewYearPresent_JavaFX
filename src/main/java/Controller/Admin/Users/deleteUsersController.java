@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import Model.User.Customer;
 import Controller.SerializatorAuthorization;
 import Model.User.User;
-import Model.User.UserFactory;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
-public class BanController {
+public class deleteUsersController {
 
     @FXML
     private ResourceBundle resources;
@@ -66,7 +64,16 @@ public class BanController {
 
     @FXML
     void Entry(ActionEvent event) {
-        NewYearApplication.showMainAdmin();
+        NewYearApplication.userWork();
+    }
+
+    @FXML
+    public void deleteUsers(){
+        NewYearApplication.userWork();
+    }
+    @FXML
+    void banUsers(ActionEvent event) {
+        NewYearApplication.showBunUsers();
     }
 
     @FXML
@@ -75,36 +82,18 @@ public class BanController {
     }
 
     @FXML
-    public void banUsers(){
-        NewYearApplication.userWork();
-    }
-
-    @FXML
-    public void deleteUsers(){
-        NewYearApplication.showDeleteUsers();
-    }
-
-    @FXML
-    void submit(ActionEvent event) throws IOException, ClassNotFoundException {
+    void delete(ActionEvent event) throws IOException, ClassNotFoundException {
         List<User> users = SerializatorAuthorization.deserialization();
         String login = loginLable.getText();
-        UserFactory userFactory = new UserFactory();
-
         Optional<User> foundUser = users.stream()
                 .filter(user -> user.getLogin().equals(login))
                 .findFirst();
         if (foundUser.isPresent()) {
-            User user;
             int num = users.indexOf(foundUser.get());
-            if (users.get(num) instanceof Customer)
-                user = userFactory.createUser("customer", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), users.get(num).getPresent());
-            else
-                user = userFactory.createUser("administrator", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), null);
-            users.set(num, user);
+            users.remove(num);
             SerializatorAuthorization.serialization(users);
             NewYearApplication.userWork();
         }
-
     }
 
     @FXML

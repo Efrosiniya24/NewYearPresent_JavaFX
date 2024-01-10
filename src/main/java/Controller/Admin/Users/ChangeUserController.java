@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import Model.Candy.*;
 import Model.User.Customer;
-import Model.User.SerializatorAuthorization;
+import Controller.SerializatorAuthorization;
 import Model.User.User;
 import Model.User.UserFactory;
 import com.example.laba5.NewYearApplication;
@@ -68,14 +67,20 @@ public class ChangeUserController {
         NewYearApplication.showMainAdmin();
     }
 
-  @FXML
-  public void banUsers(){
+    @FXML
+    public void banUsers() {
         NewYearApplication.showBunUsers();
-  }
-  @FXML
-  public void changeUsers(){
-        NewYearApplication.showChangingUsers();
-  }
+    }
+
+    @FXML
+    public void changeUsers() {
+        NewYearApplication.userWork();
+    }
+
+    @FXML
+    public void deleteUsers() {
+        NewYearApplication.showDeleteUsers();
+    }
 
     @FXML
     void initialize() {

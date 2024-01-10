@@ -50,7 +50,7 @@ public class UserAdminController {
 
     @FXML
     public void Entry(ActionEvent event) {
-        NewYearApplication.userWork();
+        NewYearApplication.showMainAdmin();
     }
 
     @FXML
@@ -58,6 +58,15 @@ public class UserAdminController {
 
     }
 
+    @FXML
+    public void deleteUsers(){
+        NewYearApplication.showDeleteUsers();
+    }
+
+    @FXML
+    public void banUsers(){
+        NewYearApplication.showBunUsers();
+    }
     @FXML
     public void changingUsers(){
         NewYearApplication.showChangingUsers();
