@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -20,6 +22,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 public class MenuAdminWork {
+    @FXML
+    public TableView<All> tableBisciut;
+    @FXML
+    public TableColumn <?, ?>nameBiskuit;
+    @FXML
+    public Tab biscuitColumn;
+    @FXML
+    public TabPane tableCandy;
+    @FXML
+    public Tab marshmallowColumn;
+    @FXML
+    public Tab SweetColumn;
 
     @FXML
     private ResourceBundle resources;
@@ -52,16 +66,16 @@ public class MenuAdminWork {
     private Button exitButton;
 
     @FXML
-    private TableColumn<?, ?> nameBiscuit;
+    private TableColumn<All, String> nameBiscuit;
 
     @FXML
-    private TableColumn<?, ?> nameChocolate;
+    private TableColumn<All, String> nameChocolate;
 
     @FXML
-    private TableColumn<?, ?> nameMarshmallow;
+    private TableColumn<All, String> nameMarshmallow;
 
     @FXML
-    private TableColumn<?, ?> nameSweet;
+    private TableColumn<All, String> nameSweet;
 
     @FXML
     private Tab sweetColumn;
@@ -73,7 +87,7 @@ public class MenuAdminWork {
     private TableView<All> tableChocolate;
 
     @FXML
-    private TableView<?> tableMarshmallow;
+    private TableView<All> tableMarshmallow;
 
     @FXML
     private TabPane tableMenuAdmin;
@@ -82,16 +96,18 @@ public class MenuAdminWork {
     private TableView<All> tableSweet;
 
     @FXML
-    private TableColumn<?, ?> weightBiscuit;
+    private TableColumn<All, Double> weightBiscuit;
 
     @FXML
-    private TableColumn<?, ?> weightChocolate;
+    private TableColumn<All, Double> weightChocolate;
 
     @FXML
-    private TableColumn<?, ?> weightMarshmallow;
+    private TableColumn<All, Double> weightMarshmallow;
 
     @FXML
-    private TableColumn<?, ?> weightSweet;
+    private TableColumn<All, Double> weightSweet;
+
+    private static List<All> all;
 
     @FXML
     void Entry(ActionEvent event) {
@@ -116,78 +132,90 @@ public class MenuAdminWork {
 
     @FXML
     public void initialize() {
-        List<All> all = new ArrayList<>();
+       all = new ArrayList<>();
 
         try {
             all.addAll(Serializator.deserialization());
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Ошибка ввода-вывода\n");
         }
-
-        ObservableList<All> candyObservableList = null;
-
-        tableMenuAdmin.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
-            if (newTab != null) {
-                String selectedColumn = newTab.getText();
-                switch (selectedColumn) {
-                    case "Зефир" -> {
-                        All marshmallow = new Marshmallow();
-                        candyObservableList.addAll(marshmallow.view(all));
-                        nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableBiscuit.setItems(candyObservableList);
-                    }
-                    case "Шоколад" -> {
-                        All chocolate = new Chocolate();
-                        candyObservableList.addAll(chocolate.view(all));
-                        nameChocolate.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightChocolate.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableChocolate.setItems(candyObservableList);
-                    }
-                    case "Печенье" -> {
-                        All biscuit = new Biscuit();
-                        candyObservableList.addAll(biscuit.view(all));
-                        nameBiscuit.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableSweet.setItems(candyObservableList);
-                    }
-                    case "Конфеты" -> {
-                        All sweet = new Sweet();
-                        candyObservableList.addAll(sweet.view(all));
-                        nameSweet.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightSweet.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableSweet.setItems(candyObservableList);
-                    }
-                }
-            }
-        });
+        System.out.println(all);
+        showBiscuits();
     }
 
         public void entry() {
             NewYearApplication.showMainAdmin();
         }
+@FXML
+public void showChocolate() {
+    List<All> alll = new ArrayList<>();
 
+    try {
+        alll.addAll(Serializator.deserialization());
+    } catch (IOException | ClassNotFoundException e) {
+        System.err.println("Ошибка ввода-вывода\n");
+    }
+    List<All> chocolates = new ArrayList<>();
+    for (All alls : alll)
+        if (alls instanceof Chocolate)
+            chocolates.add(alls);
+    System.out.println(chocolates);
 
-//        Tab column = new Tab();
-//        column.set
-//        button.setOnAction((ActionEvent event) -> {
-//            String column = button.getText();
-//            switch (column) {
-//                case "Зефир" -> all.add(facade.addMarshmallowMenu());
-//                case "Шоколад" -> all.add(facade.addChocolateMenu());
-//                case "Печенье" -> all.add(facade.addBiscuitMenu());
-//                case "Конфеты" -> all.add(facade.addSweetMenu();
-//            }
-//        });
+    ObservableList<All> allObservableList = FXCollections.observableArrayList(chocolates);
 
-//        String column = Tab.;
-//        System.out.println(column);
-//        all.add(facade.addBiscuitMenu());
-//        List<User> usersList = MainAdmin.getUsers();
-//        ObservableList<User> userObservableList = FXCollections.observableArrayList(usersList);
-//        loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
-//        roleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().getSimpleName()));
-//        accessColumn.setCellValueFactory(new PropertyValueFactory<>("hasAccess"));
-//        userTableView.setItems(userObservableList);
+    nameChocolate.setCellValueFactory(new PropertyValueFactory<>("name"));
+    weightChocolate.setCellValueFactory(new PropertyValueFactory<>("weight"));
+    tableChocolate.setItems(allObservableList);
+}
 
+    @FXML
+    public void showBiscuits() {
+        List<All> biscuits = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Biscuit)
+                biscuits.add(alls);
+        System.out.println(biscuits);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(biscuits);
+
+        nameBiskuit.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableBisciut.setItems(allObservableList);
+    }
+
+    @FXML
+    public void showMarshmallow() {
+        List<All> marshmallow = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Marshmallow)
+                marshmallow.add(alls);
+        System.out.println(marshmallow);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(marshmallow);
+
+        nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableMarshmallow.setItems(allObservableList);
+    }
+
+    @FXML
+    public void showSweet() {
+        List<All> sweet = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Sweet)
+                sweet.add(alls);
+        System.out.println(sweet);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(sweet);
+
+        nameSweet.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightSweet.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableSweet.setItems(allObservableList);
+    }
 }

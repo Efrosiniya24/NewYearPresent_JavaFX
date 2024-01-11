@@ -32,7 +32,7 @@ public class BanController {
     private URL location;
 
     @FXML
-    private TableColumn<?, ?> banColumn;
+    private TableColumn<User, Boolean> banColumn;
 
     @FXML
     private Button bunButton;
@@ -53,10 +53,10 @@ public class BanController {
     private TextField loginLable;
 
     @FXML
-    private TableColumn<?, ?> lognInColumn;
+    private TableColumn<User, String> lognInColumn;
 
     @FXML
-    private TableColumn<?, ?> passwordColumn;
+    private TableColumn<User, String> passwordColumn;
 
     @FXML
     private Button submitLable;

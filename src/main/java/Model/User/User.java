@@ -66,4 +66,6 @@ public abstract class User implements Serializable {
                 ", present=" + present +
                 '}';
     }
+
+
 }

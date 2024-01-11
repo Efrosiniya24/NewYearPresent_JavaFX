@@ -25,7 +25,7 @@ public class ChangeUserController {
     @FXML
     public TextField loginLable;
     @FXML
-    public TableColumn passwordColumn;
+    public TableColumn <User, String> passwordColumn;
     @FXML
     private ResourceBundle resources;
 
@@ -33,7 +33,7 @@ public class ChangeUserController {
     private URL location;
 
     @FXML
-    private TableColumn<?, ?> banColumn;
+    private TableColumn<User, Boolean> banColumn;
 
     @FXML
     private Button bunButton;
@@ -51,7 +51,7 @@ public class ChangeUserController {
     private Button exitButton;
 
     @FXML
-    private TableColumn<?, ?> lognInColumn;
+    private TableColumn<User, String> lognInColumn;
 
     @FXML
     private TextField newLoginLable;

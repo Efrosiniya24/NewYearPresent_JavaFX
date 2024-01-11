@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -22,6 +25,12 @@ import javafx.scene.image.ImageView;
 
 public class RemoveFromMenuController {
 
+    public TableView<All> tableBisciut;
+    public TableColumn<All, String> nameBiskuit;
+    public Tab biscuitColumn;
+    public TabPane tableCandy;
+    public Tab marshmallowColumn;
+    public Tab SweetColumn;
     @FXML
     private ResourceBundle resources;
 
@@ -56,19 +65,19 @@ public class RemoveFromMenuController {
     private Button exitButton;
 
     @FXML
-    private TableColumn<?, ?> nameBiscuit;
+    private TableColumn<All, String> nameBiscuit;
 
     @FXML
-    private TableColumn<?, ?> nameChocolate;
+    private TableColumn<All, String> nameChocolate;
 
     @FXML
-    private TableColumn<?, ?> nameMarshmallow;
+    private TableColumn<All, String> nameMarshmallow;
 
     @FXML
     private TextField nameOfCandyLable;
 
     @FXML
-    private TableColumn<?, ?> nameSweet;
+    private TableColumn<All, String> nameSweet;
 
     @FXML
     private Button submitLable;
@@ -83,7 +92,7 @@ public class RemoveFromMenuController {
     private TableView<All> tableChocolate;
 
     @FXML
-    private TableView<?> tableMarshmallow;
+    private TableView<All> tableMarshmallow;
 
     @FXML
     private TabPane tableMenuAdmin;
@@ -92,16 +101,17 @@ public class RemoveFromMenuController {
     private TableView<All> tableSweet;
 
     @FXML
-    private TableColumn<?, ?> weightBiscuit;
+    private TableColumn<All, Double> weightBiscuit;
 
     @FXML
-    private TableColumn<?, ?> weightChocolate;
+    private TableColumn<All, Double> weightChocolate;
 
     @FXML
-    private TableColumn<?, ?> weightMarshmallow;
+    private TableColumn<All, Double> weightMarshmallow;
 
     @FXML
-    private TableColumn<?, ?> weightSweet;
+    private TableColumn<All, Double> weightSweet;
+    private static List<All> all;
 
     @FXML
     void Entry(ActionEvent event) {
@@ -125,56 +135,18 @@ public class RemoveFromMenuController {
 
     @FXML
     void initialize() {
-        List<All> all = new ArrayList<>();
-
+        all = new ArrayList<>();
         try {
             all.addAll(Serializator.deserialization());
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Ошибка ввода-вывода\n");
         }
-
-        ObservableList<All> candyObservableList = null;
-
-        tableMenuAdmin.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
-            if (newTab != null) {
-                String selectedColumn = newTab.getText();
-                switch (selectedColumn) {
-                    case "Зефир" -> {
-                        All marshmallow = new Marshmallow();
-                        candyObservableList.addAll(marshmallow.view(all));
-                        nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableBiscuit.setItems(candyObservableList);
-                    }
-                    case "Шоколад" -> {
-                        All chocolate = new Chocolate();
-                        candyObservableList.addAll(chocolate.view(all));
-                        nameChocolate.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightChocolate.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableChocolate.setItems(candyObservableList);
-                    }
-                    case "Печенье" -> {
-                        All biscuit = new Biscuit();
-                        candyObservableList.addAll(biscuit.view(all));
-                        nameBiscuit.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableBiscuit.setItems(candyObservableList);
-                    }
-                    case "Конфеты" -> {
-                        All sweet = new Sweet();
-                        candyObservableList.addAll(sweet.view(all));
-                        nameSweet.setCellValueFactory(new PropertyValueFactory<>("name"));
-                        weightSweet.setCellValueFactory(new PropertyValueFactory<>("weight"));
-                        tableSweet.setItems(candyObservableList);
-                    }
-                }
-            }
-        });
+        showBiscuits();
     }
 
     @FXML
     public void submit() throws IOException, ClassNotFoundException {
-        List<All> all = new ArrayList<>();
+        all = new ArrayList<>();
         try {
             all.addAll(Serializator.deserialization());
         } catch (IOException | ClassNotFoundException e) {
@@ -186,28 +158,29 @@ public class RemoveFromMenuController {
                 All biscuit = new Biscuit();
 //                int num = biscuit.chooseNumber();
 //                if (num != -1)
-                    biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
+                biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
 //                else
 //                    System.out.println("Печенья нет...");
             }
             case "шоколад" -> {
                 All chocolate = new Chocolate();
                 chocolate.delete(all, nameOfCandyLable.getText().toLowerCase());
-               }
+            }
             case "конфеты" -> {
-               All sweet  = new Sweet();
+                All sweet = new Sweet();
                 sweet.delete(all, nameOfCandyLable.getText().toLowerCase());
             }
             case "зефир" -> {
-            All marshmallow = new Marshmallow();
-            marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
+                All marshmallow = new Marshmallow();
+                marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
             }
         }
         saveFile(all);
         System.out.println(all);
-        NewYearApplication.showRemovingFromMenu();
+        updatingTable();
     }
-    public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {
+
+    public void saveFile(List<All> all) throws IOException, ClassNotFoundException {
         List<All> all2 = new ArrayList<>();
 
         try {
@@ -218,6 +191,92 @@ public class RemoveFromMenuController {
             System.err.println("Ошибка ввода-вывода\n");
         }
         all2.addAll(Serializator.deserialization());
+        updatingTable();
+    }
+    @FXML
+    public void showChocolate() {
+        List<All> chocolates = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Chocolate)
+                chocolates.add(alls);
+        System.out.println(chocolates);
 
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(chocolates);
+
+        nameChocolate.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightChocolate.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableChocolate.setItems(allObservableList);
+    }
+
+    @FXML
+    public void showBiscuits() {
+        List<All> biscuits = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Biscuit)
+                biscuits.add(alls);
+        System.out.println(biscuits);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(biscuits);
+
+        nameBiskuit.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableBisciut.setItems(allObservableList);
+    }
+
+    @FXML
+    public void showMarshmallow() {
+        List<All> marshmallow = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Marshmallow)
+                marshmallow.add(alls);
+        System.out.println(marshmallow);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(marshmallow);
+
+        nameMarshmallow.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableMarshmallow.setItems(allObservableList);
+    }
+
+    @FXML
+    public void showSweet() {
+        List<All> sweet = new ArrayList<>();
+        for (All alls : all)
+            if (alls instanceof Sweet)
+                sweet.add(alls);
+        System.out.println(sweet);
+
+        ObservableList<All> allObservableList = FXCollections.observableArrayList();
+        allObservableList.clear();
+        allObservableList.addAll(sweet);
+
+        nameSweet.setCellValueFactory(new PropertyValueFactory<>("name"));
+        weightSweet.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tableSweet.setItems(allObservableList);
+    }
+
+    public void updatingTable(){
+        Tab selectedTab = tableCandy.getSelectionModel().getSelectedItem();
+        String tabTitle = null;
+        if (selectedTab != null) {
+            tabTitle = selectedTab.getText();
+            System.out.println("Название открытой вкладки: " + tabTitle);
+        } else {
+            System.out.println("Нет открытых вкладок");
+        }
+        switch(Objects.requireNonNull(tabTitle).toLowerCase()){
+            case "печенье" -> showBiscuits();
+            case "шоколад" -> showChocolate();
+            case "зефир" ->showMarshmallow();
+            case "конфеты" -> showSweet();
+        }
+        categoryLable.clear();
+        nameOfCandyLable.clear();
     }
 }

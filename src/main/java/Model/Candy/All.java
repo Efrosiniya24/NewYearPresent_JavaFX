@@ -15,7 +15,7 @@ public abstract class All implements Serializable {
 
     public abstract void addGift(int i, All all, User user);
 
-    public abstract double choose(List<All> all, User user);
+    public abstract double choose(List<All> all, User user, int quantity, String name);
 
     public abstract ObservableList<All> view(List<All> all);
 

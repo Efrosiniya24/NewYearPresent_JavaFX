@@ -20,8 +20,8 @@
       </ImageView>
       <AnchorPane layoutX="145.0" layoutY="47.0" prefHeight="282.0" prefWidth="424.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
          <children>
-            <TextField fx:id="loginField" layoutX="58.0" layoutY="125.0" prefHeight="27.0" prefWidth="307.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;" />
-            <PasswordField fx:id="passwordField" layoutX="58.0" layoutY="82.0" prefHeight="27.0" prefWidth="307.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
+            <TextField fx:id="loginField" layoutX="59.0" layoutY="78.0" prefHeight="27.0" prefWidth="307.0" promptText="Логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px;" />
+            <PasswordField fx:id="passwordField" layoutX="59.0" layoutY="121.0" prefHeight="27.0" prefWidth="307.0" promptText="Пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
             <Button fx:id="EntryButton" layoutX="112.0" layoutY="171.0" mnemonicParsing="false" onAction="#Entry" prefHeight="35.0" prefWidth="199.0" style="-fx-background-color: #7CB4DA;" text="Войти">
                <font>
                   <Font name="Arial" size="19.0" />

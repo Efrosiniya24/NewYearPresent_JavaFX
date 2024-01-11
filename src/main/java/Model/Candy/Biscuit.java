@@ -1,20 +1,19 @@
 package Model.Candy;
 
+import Controller.SerializatorAuthorization;
 import Model.User.User;
+import com.example.laba5.NewYearApplication;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Biscuit extends All implements Serializable {
     static List<All> biscuit = new ArrayList<>();
-    static List<All> biscuitsGift = new ArrayList<>();
+    public static List<All> biscuitsGift = new ArrayList<>();
     static boolean b = true;
 
     public static List<All> getBiscuit() {
@@ -28,7 +27,7 @@ public class Biscuit extends All implements Serializable {
                 biscuit.add(alls);
 
         ObservableList<All> biscuitObservableList = FXCollections.observableArrayList(biscuit);
-       return biscuitObservableList;
+        return biscuitObservableList;
 
 //        int i = 1;
 //        for (All alls : all)
@@ -113,53 +112,24 @@ public class Biscuit extends All implements Serializable {
     }
 
     @Override
-    public double choose(List<All> all, User user) throws ArrayIndexOutOfBoundsException {
-        Scanner sc = new Scanner(System.in);
-        int operation;
-        int amount;
+    public double choose(List<All> all, User user, int quantity, String name) throws ArrayIndexOutOfBoundsException {
         double allWeihgt = 0;
-//        boolean t = view(all);
-//        if (t) {
-//            while (true) {
-//                System.out.print("Номер печенья: ");
-//                while (true) {
-//                    try {
-//                        operation = sc.nextInt();
-//                        break;
-//                    } catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
-//                        System.out.println("Повторите ввод");
-//                        sc.next();
-//                    }
-//                }
-//
-//                System.out.println("Укажите количество: ");
-//
-//                while (true) {
-//                    try {
-//                        amount = sc.nextInt();
-//                        break;
-//                    } catch (InputMismatchException e) {
-//                        System.out.println("Повторите ввод");
-//                        sc.next();
-//                    }
-//                }
-//                addGift(operation, biscuit.get(operation - 1), user);
-//                allWeihgt += (amount * biscuit.get(operation - 1).getWeight());
-//                biscuit.get(operation - 1).setAllWeightPresent(allWeihgt);
-//                System.out.println("Продолжить?\n 1)Да\n 2)Нет");
-//
-//                while (true) {
-//                    try {
-//                        operation = sc.nextInt();
-//                        if (operation == 2)
-//                            return allWeihgt;
-//                        else break;
-//                    } catch (InputMismatchException e) {
-//                        System.out.print("Повторите ввод: ");
-//                    }
-//                }
-//            }
-//        }
+        int j = -1;
+        int i = 0;
+        int size = all.size();
+        for (i = 0; i < size; i++) {
+            if (all.get(i) instanceof Biscuit) {
+                j++;
+                if(all.get(i).getName().equals(name))
+                    break;
+            }
+        }
+        if (j>-1) {
+            addGift(i, all.get(i), user);
+            allWeihgt += (quantity * all.get(i).getWeight());
+            all.get(i).setAllWeightPresent(allWeihgt);
+            return allWeihgt;
+        }
         return 0;
     }
 

@@ -1,6 +1,7 @@
 package com.example.laba5;
 
 import Controller.SerializatorAuthorization;
+import Model.Candy.All;
 import Model.User.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,9 @@ public class NewYearApplication extends Application {
 //        List<User> user = new ArrayList<>();
 //        user.add(new Administrator("admin", "1111", false, null));
 //        SerializatorAuthorization.serialization(user);
+        List<All> all = new ArrayList<>();
+        System.out.println(all);
+        System.out.println(SerializatorAuthorization.deserialization());
         primaryStage = stage;
         stage.setTitle("Авторизация");
         showAuthorization();
@@ -153,6 +157,30 @@ public class NewYearApplication extends Application {
             Parent root = loader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Регистрация");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showMainCustomer(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("mainCustomer.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Меню");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showMakeGift(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("makeGift.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Создание подарка");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e);

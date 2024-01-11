@@ -2,8 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import Model.Candy.All;
 import Model.User.IteratorUser;
@@ -35,6 +34,19 @@ public class EntryController {
     private Hyperlink regestrationLink;
 
     private static int indexUser = -1;
+    private static List<User> users = new ArrayList<>(Collections.singletonList(null));
+
+    public static List<User> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(List<User> users) {
+        EntryController.users = users;
+    }
+
+    public static User getUser(){
+        return users.get(0);
+    }
 
     @FXML
     public void registration(){
@@ -84,11 +96,14 @@ public class EntryController {
         User user;
         if (password.equals("1111") && login.equals("admin")) {
             user = userFactory.createUser("administrator", login, password, false, present);
+            users.set(0,user);
             NewYearApplication.showMainAdmin();
         }
-        else
+        else {
             user = userFactory.createUser("customer", login, password, false, present);
-//        user.reviewMenu(user);
+            users.set(0,user);
+            NewYearApplication.showMainCustomer();
+        }
         return user;
     }
 

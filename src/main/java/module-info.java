@@ -13,4 +13,10 @@ module com.example.laba5 {
     opens Controller.Admin.Menu to javafx.fxml;
     exports Controller.Admin.Users;
     opens Controller.Admin.Users to javafx.fxml;
+    exports Controller.Customer;
+    opens Controller.Customer to javafx.fxml;
+    exports Model.User to javafx.base;
+    opens Model.User to javafx.base;
+    exports Model.Candy to javafx.base;
+    opens Model.Candy to javafx.base;
 }
