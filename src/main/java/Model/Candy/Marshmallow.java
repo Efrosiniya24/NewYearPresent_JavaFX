@@ -51,31 +51,37 @@ public class Marshmallow extends All implements Serializable {
     public void viewGift(User user) {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
-        System.out.println("\n___Зефир___: ");
         marshmallowGift.clear();
         for (int i = 0; i < user.getPresent().size(); i++) {
             if (user.getPresent().get(i) instanceof Marshmallow)
                 marshmallowGift.add(user.getPresent().get(i));
         }
-        if (marshmallowGift.isEmpty())
-            System.out.println("Зефира нет");
+        int size = marshmallowGift.size();
+        if (size == 0)
+            System.out.println("Печенья нет");
         else {
-            for(int i = 0; i <marshmallowGift.size(); i++){
-                if(!name.contains(marshmallowGift.get(i).getName())) {
-                    name.add(marshmallowGift.get(i).getName());
-                    allWeight.add(marshmallowGift.get(i).getAllWeightPresent());
-                }
-                else
-                {
-                    for(int u = 0; u<name.size();u++){
-                        if(name.get(u).equals(marshmallowGift.get(i).getName())){
-                            allWeight.set(u, (allWeight.get(u)+marshmallowGift.get(i).getAllWeightPresent()));
-                        }
-                    }
-                }
+            for (All all : marshmallowGift) {
+                if (!name.contains(all.getName())) {
+                    name.add(all.getName());
+                    allWeight.add(all.getAllWeightPresent());
+                } else
+                    for (int u = 0; u < name.size(); u++)
+                        if (name.get(u).equals(all.getName()))
+                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
             }
-            for (int i = 0; i < name.size(); i++)
-                System.out.println((i + 1) + ") " + name.get(i) + " " + allWeight.get(i) + "г");    }
+            marshmallowGift.clear();
+            for (int i = 0; i < name.size(); i++) {
+                Marshmallow marshmallow = new Marshmallow();
+                marshmallow.setName(name.get(i));
+                marshmallow.setWeight(allWeight.get(i));
+                marshmallowGift.add(marshmallow);
+            }
+            System.out.println(marshmallowGift);
+        }
+    }
+
+    public static List<All> getMarshmallowGift() {
+        return marshmallowGift;
     }
 
     @Override

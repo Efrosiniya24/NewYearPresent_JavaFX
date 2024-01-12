@@ -71,31 +71,35 @@ public class Biscuit extends All implements Serializable {
     public void viewGift(User user) {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
-        System.out.println("\n___Печенье___: ");
         biscuitsGift.clear();
-        for (int i = 0; i < user.getPresent().size(); i++) {
+        for (int i = 0; i < user.getPresent().size(); i++)
             if (user.getPresent().get(i) instanceof Biscuit)
                 biscuitsGift.add(user.getPresent().get(i));
-        }
         int size = biscuitsGift.size();
         if (size == 0)
             System.out.println("Печенья нет");
         else {
-            for (int i = 0; i < biscuitsGift.size(); i++) {
-                if (!name.contains(biscuitsGift.get(i).getName())) {
-                    name.add(biscuitsGift.get(i).getName());
-                    allWeight.add(biscuitsGift.get(i).getAllWeightPresent());
-                } else {
-                    for (int u = 0; u < name.size(); u++) {
-                        if (name.get(u).equals(biscuitsGift.get(i).getName())) {
-                            allWeight.set(u, (allWeight.get(u) + biscuitsGift.get(i).getAllWeightPresent()));
-                        }
-                    }
-                }
+            for (All all : biscuitsGift) {
+                if (!name.contains(all.getName())) {
+                    name.add(all.getName());
+                    allWeight.add(all.getAllWeightPresent());
+                } else
+                    for (int u = 0; u < name.size(); u++)
+                        if (name.get(u).equals(all.getName()))
+                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
             }
-            for (int i = 0; i < name.size(); i++)
-                System.out.println((i + 1) + ") " + name.get(i) + " " + allWeight.get(i) + "г");
+            biscuitsGift.clear();
+            for(int i = 0; i < name.size(); i++) {
+                Biscuit biscuit = new Biscuit();
+                biscuit.setName(name.get(i));
+                biscuit.setWeight(allWeight.get(i));
+                biscuitsGift.add(biscuit);
+            }
+            System.out.println(biscuitsGift);
         }
+    }
+    public static List<All> getBiscuitsGift() {
+        return biscuitsGift;
     }
 
     @Override

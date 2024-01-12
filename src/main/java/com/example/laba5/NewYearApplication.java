@@ -2,6 +2,7 @@ package com.example.laba5;
 
 import Controller.SerializatorAuthorization;
 import Model.Candy.All;
+import Model.User.Administrator;
 import Model.User.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -181,6 +182,29 @@ public class NewYearApplication extends Application {
             Parent root = loader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Создание подарка");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public static void showWeightOfGift(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("weigthOfGift.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Вес подарка");
+            primaryStage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void showViewOfGift(){
+        try {
+            FXMLLoader loader = new FXMLLoader(NewYearApplication.class.getResource("viewGift.fxml"));
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("Подарок");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e);

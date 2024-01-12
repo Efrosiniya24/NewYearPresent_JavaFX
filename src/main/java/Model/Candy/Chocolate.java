@@ -10,7 +10,7 @@ import java.util.*;
 public class Chocolate extends All implements Serializable {
     static List<All> chocolate = new ArrayList<>();
     public static List<All> chocolateGift = new ArrayList<>();
-    static  boolean b = true;
+    static boolean b = true;
 
     @Override
     public ObservableList<All> view(List<All> all) {
@@ -21,8 +21,9 @@ public class Chocolate extends All implements Serializable {
         ObservableList<All> biscuitObservableList = FXCollections.observableArrayList(chocolate);
         return biscuitObservableList;
     }
+
     @Override
-    public void changeCandyMenu(List<All> all, All chocolate, int num){
+    public void changeCandyMenu(List<All> all, All chocolate, int num) {
         all.set(num, chocolate);
     }
 
@@ -33,9 +34,9 @@ public class Chocolate extends All implements Serializable {
 
     @Override
     public void addGift(int i, All all, User user) {
-        if(chocolateGift.isEmpty()) {
+        if (chocolateGift.isEmpty()) {
             for (int u = 0; u < user.getPresent().size(); u++) {
-                b =  false;
+                b = false;
                 if (user.getPresent().get(u) instanceof Biscuit) {
                     chocolateGift.add(user.getPresent().get(u));
                 }
@@ -50,31 +51,37 @@ public class Chocolate extends All implements Serializable {
     public void viewGift(User user) {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
-        System.out.println("\n___Шоколад___: ");
         chocolateGift.clear();
         for (int i = 0; i < user.getPresent().size(); i++) {
             if (user.getPresent().get(i) instanceof Chocolate)
                 chocolateGift.add(user.getPresent().get(i));
         }
-        if (chocolateGift.isEmpty())
-            System.out.println("Шоколада нет");
+        int size = chocolateGift.size();
+        if (size == 0)
+            System.out.println("Печенья нет");
         else {
-            for(int i = 0; i <chocolateGift.size(); i++){
-                if(!name.contains(chocolateGift.get(i).getName())) {
-                    name.add(chocolateGift.get(i).getName());
-                    allWeight.add(chocolateGift.get(i).getAllWeightPresent());
-                }
-                else
-                {
-                    for(int u = 0; u<name.size();u++){
-                        if(name.get(u).equals(chocolateGift.get(i).getName())){
-                            allWeight.set(u, (allWeight.get(u)+chocolateGift.get(i).getAllWeightPresent()));
-                        }
-                    }
-                }
+            for (All all : chocolateGift) {
+                if (!name.contains(all.getName())) {
+                    name.add(all.getName());
+                    allWeight.add(all.getAllWeightPresent());
+                } else
+                    for (int u = 0; u < name.size(); u++)
+                        if (name.get(u).equals(all.getName()))
+                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
             }
-            for (int i = 0; i < name.size(); i++)
-                System.out.println((i + 1) + ") " + name.get(i) + " " + allWeight.get(i) + "г");    }
+            chocolateGift.clear();
+            for (int i = 0; i < name.size(); i++) {
+                Chocolate chocolate = new Chocolate();
+                chocolate.setName(name.get(i));
+                chocolate.setWeight(allWeight.get(i));
+                chocolateGift.add(chocolate);
+            }
+            System.out.println(chocolateGift);
+        }
+    }
+
+    public static List<All> getChocolateGift() {
+        return chocolateGift;
     }
 
     @Override
@@ -92,7 +99,7 @@ public class Chocolate extends All implements Serializable {
 
     @Override
     public int chooseNumber() {
-        if(!chocolate.isEmpty()) {
+        if (!chocolate.isEmpty()) {
             Scanner sc = new Scanner(System.in);
             int number = 0;
             while (true) {
@@ -121,11 +128,11 @@ public class Chocolate extends All implements Serializable {
         for (i = 0; i < size; i++) {
             if (all.get(i) instanceof Chocolate) {
                 j++;
-                if(all.get(i).getName().equals(name))
+                if (all.get(i).getName().equals(name))
                     break;
             }
         }
-        if (j>-1) {
+        if (j > -1) {
             addGift(i, all.get(i), user);
             allWeihgt += (quantity * all.get(i).getWeight());
             all.get(i).setAllWeightPresent(allWeihgt);

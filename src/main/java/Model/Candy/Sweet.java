@@ -52,31 +52,37 @@ public class Sweet extends All implements Serializable {
     public void viewGift(User user) {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
-        System.out.println("\n___Конфеты___: ");
         sweetGift.clear();
         for (int i = 0; i < user.getPresent().size(); i++) {
             if (user.getPresent().get(i) instanceof Sweet)
                 sweetGift.add(user.getPresent().get(i));
         }
-        if (sweetGift.isEmpty())
-            System.out.println("Конфет нет");
+        int size = sweetGift.size();
+        if (size == 0)
+            System.out.println("Печенья нет");
         else {
-            for(int i = 0; i <sweetGift.size(); i++){
-                if(!name.contains(sweetGift.get(i).getName())) {
-                    name.add(sweetGift.get(i).getName());
-                    allWeight.add(sweetGift.get(i).getAllWeightPresent());
-                }
-                else
-                {
-                    for(int u = 0; u<name.size();u++){
-                        if(name.get(u).equals(sweetGift.get(i).getName())){
-                            allWeight.set(u, (allWeight.get(u)+sweetGift.get(i).getAllWeightPresent()));
-                        }
-                    }
-                }
+            for (All all : sweetGift) {
+                if (!name.contains(all.getName())) {
+                    name.add(all.getName());
+                    allWeight.add(all.getAllWeightPresent());
+                } else
+                    for (int u = 0; u < name.size(); u++)
+                        if (name.get(u).equals(all.getName()))
+                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
             }
-            for (int i = 0; i < name.size(); i++)
-                System.out.println((i + 1) + ") " + name.get(i) + " " + allWeight.get(i) + "г");    }
+            sweetGift.clear();
+            for (int i = 0; i < name.size(); i++) {
+                Sweet sweet = new Sweet();
+                sweet.setName(name.get(i));
+                sweet.setWeight(allWeight.get(i));
+                sweetGift.add(sweet);
+            }
+            System.out.println(sweetGift);
+        }
+    }
+
+    public static List<All> getSweetGift() {
+        return sweetGift;
     }
 
     @Override

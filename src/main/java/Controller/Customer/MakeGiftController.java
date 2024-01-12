@@ -323,6 +323,9 @@ public class MakeGiftController {
         List<User>users = EntryController.getUsers();
         SerializatorAuthorization.serialization(users);
         System.out.println(present1);
+        categoryLable.clear();
+        nameLable.clear();
+        quantityLable.clear();
     }
 
 
@@ -410,6 +413,23 @@ public class MakeGiftController {
         all2.addAll(all);
         showBiscuits();
     }
+    public static double count() {
+        User user = EntryController.getUser();
+        Calculate result = ((n) -> {
+            double w1 = 0;
+            if (user.getPresent() == null)
+                return 0;
+            int size = user.getPresent().size();
+            for (int i = 0; i < size; i++) {
+                w1 += user.getPresent().get(i).getAllWeightPresent();
+            }
+            return w1;
+        });
 
+        if (result.func(user) == 0) {
+          return 0;
+        } else
+           return result.func(user);
+    }
 
 }

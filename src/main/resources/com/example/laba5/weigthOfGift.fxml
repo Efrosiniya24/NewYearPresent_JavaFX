@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Customer.WeightOfGiftController">
+    <children>
+        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@winter.jpg" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="22.0" layoutY="18.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+            <children>
+                <Label layoutX="275.0" layoutY="28.0" text="Меню">
+                    <font>
+                        <Font name="Arial" size="33.0" />
+                    </font>
+                </Label>
+                <Button fx:id="weightButton" layoutX="55.0" layoutY="139.0" mnemonicParsing="false" onAction="#viewWeigthOfPresent" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Посмотреть вес подарка">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="viewPresentButton" layoutX="56.0" layoutY="228.0" mnemonicParsing="false" onAction="#viewPresent" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="Посмотреть подарок">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="makeButton" layoutX="55.0" layoutY="85.0" mnemonicParsing="false" onAction="#makePresent" prefHeight="35.0" prefWidth="210.0" style="-fx-background-color: #7CB4DA; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Собрать подарок">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@free-icon-exit-2001034.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-101.0599365234375" />
+                <Line endX="176.9400634765625" layoutX="87.0" layoutY="46.0" startX="-31.659912109375" startY="7.62939453125E-6" />
+                <ImageView fitHeight="298.0" fitWidth="269.0" layoutX="333.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@newYear.png" />
+                    </image>
+                </ImageView>
+            <Label fx:id="weightOfGift" alignment="CENTER" layoutX="56.0" layoutY="185.0" onDragDetected="#weightOfGift" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: екфтызфтшуте; -fx-border-color: #7CB4DA; -fx-border-radius: 20px; -fx-border-width: 2px; -fx-background-radius: 20px;" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
