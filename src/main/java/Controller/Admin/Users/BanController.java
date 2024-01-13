@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Controller.Alerts;
+import Errors.Errors;
 import Model.User.Customer;
 import Controller.SerializatorAuthorization;
 import Model.User.User;
@@ -75,12 +77,12 @@ public class BanController {
     }
 
     @FXML
-    public void banUsers(){
+    public void banUsers() {
         NewYearApplication.userWork();
     }
 
     @FXML
-    public void deleteUsers(){
+    public void deleteUsers() {
         NewYearApplication.showDeleteUsers();
     }
 
@@ -89,22 +91,27 @@ public class BanController {
         List<User> users = SerializatorAuthorization.deserialization();
         String login = loginLable.getText();
         UserFactory userFactory = new UserFactory();
-
-        Optional<User> foundUser = users.stream()
-                .filter(user -> user.getLogin().equals(login))
-                .findFirst();
-        if (foundUser.isPresent()) {
-            User user;
-            int num = users.indexOf(foundUser.get());
-            if (users.get(num) instanceof Customer)
-                user = userFactory.createUser("customer", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), users.get(num).getPresent());
-            else
-                user = userFactory.createUser("administrator", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), null);
-            users.set(num, user);
-            SerializatorAuthorization.serialization(users);
-            NewYearApplication.userWork();
+        if (login.isEmpty()) {
+            Alerts.warningAlert("ВЫ не ввели логин. Будьте внимательнее)");
+        } else {
+            if(Errors.loginOfUser(users, login)) {
+                Optional<User> foundUser = users.stream()
+                        .filter(user -> user.getLogin().equals(login))
+                        .findFirst();
+                if (foundUser.isPresent()) {
+                    User user;
+                    int num = users.indexOf(foundUser.get());
+                    if (users.get(num) instanceof Customer)
+                        user = userFactory.createUser("customer", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), users.get(num).getPresent());
+                    else
+                        user = userFactory.createUser("administrator", users.get(num).getLogin(), users.get(num).getPassword(), !users.get(num).getBan(), null);
+                    users.set(num, user);
+                    SerializatorAuthorization.serialization(users);
+                    NewYearApplication.userWork();
+                }
+            }
+            loginLable.clear();
         }
-
     }
 
     @FXML

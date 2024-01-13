@@ -15,14 +15,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Users.ChangeUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" styleClass="body" stylesheets="@photo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Users.ChangeUserController">
     <children>
-        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@winter.jpg" />
-            </image>
-        </ImageView>
-        <AnchorPane layoutX="32.0" layoutY="26.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+        <AnchorPane layoutX="32.0" layoutY="26.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="26.0">
             <children>
                 <Label layoutX="209.0" layoutY="26.0" text="Пользователи">
                     <font>
@@ -53,12 +48,12 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="12.0">
                     <image>
                         <Image url="@free-icon-exit-2001034.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#Entry" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;">
+                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#Entry" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="12.0">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -69,8 +64,8 @@
                         <Color red="0.5240740776062012" green="1.0" blue="0.04814814776182175" />
                     </color>
                 </AmbientLight>
-                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-31.659912109375" startY="7.62939453125E-6" />
-                <Line endX="100.0" layoutX="87.0" layoutY="46.0" startX="-31.659912109375" startY="7.62939453125E-6" />
+                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-31.659912109375" startY="7.62939453125E-6" AnchorPane.rightAnchor="62.29289245605469" AnchorPane.topAnchor="46.29289323091507" />
+                <Line endX="100.0" layoutX="87.0" layoutY="46.0" startX="-31.659912109375" startY="7.62939453125E-6" AnchorPane.leftAnchor="54.63298034667969" AnchorPane.topAnchor="45.29289323091507" />
             <TextField fx:id="loginLable" layoutX="374.0" layoutY="123.0" prefHeight="27.0" prefWidth="226.0" promptText="Логин пользователя" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
             <TextField fx:id="newLoginLable" layoutX="374.0" layoutY="156.0" prefHeight="27.0" prefWidth="226.0" promptText="Новый логин" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
             <PasswordField fx:id="newPasswordField" layoutX="326.0" layoutY="189.0" prefHeight="27.0" prefWidth="133.0" promptText="Новый пароль" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
@@ -85,7 +80,7 @@
             </Button>
             <AnchorPane layoutX="50.0" layoutY="90.0" prefHeight="188.0" prefWidth="267.0">
                <children>
-                  <TableView fx:id="usersTable" layoutX="-1.0" layoutY="-11.0" prefHeight="200.0" prefWidth="254.0">
+                  <TableView fx:id="usersTable" layoutX="-1.0" layoutY="-11.0" prefHeight="200.0" prefWidth="229.0" styleClass="table-view" stylesheets="@../../../css/table.css">
                      <columns>
                         <TableColumn fx:id="passwordColumn" prefWidth="97.60003662109375" text="Пароль" />
                         <TableColumn fx:id="lognInColumn" prefWidth="83.19997501373291" text="Логин" />

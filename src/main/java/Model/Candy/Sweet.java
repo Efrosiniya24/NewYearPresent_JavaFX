@@ -31,6 +31,7 @@ public class Sweet extends All implements Serializable {
                 if (user.getPresent().get(u) instanceof Sweet) {
                     sweetGift.add(user.getPresent().get(u));
                 }
+                System.out.println(sweetGift);
             }
         }
         if (!sweetGift.contains(all.getName())) {

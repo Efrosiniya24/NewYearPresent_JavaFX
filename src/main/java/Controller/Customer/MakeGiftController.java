@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import Controller.Alerts;
 import Controller.EntryController;
 import Controller.SerializatorAuthorization;
+import Errors.Errors;
 import Model.Candy.*;
 import Model.User.User;
 import com.example.laba5.NewYearApplication;
@@ -93,10 +95,10 @@ public class MakeGiftController {
     private Tab marshmallowColumn;
 
     @FXML
-    private  TextField maxLable;
+    private TextField maxLable;
 
     @FXML
-    private  TextField minLable;
+    private TextField minLable;
 
     @FXML
     private TableColumn<?, ?> nameBiskuit;
@@ -140,27 +142,41 @@ public class MakeGiftController {
     @FXML
     void addFilter(ActionEvent event) throws InterruptedException {
         Filter filter = null;
-
+        boolean t = true;
         String max = maxLable.getText();
         String min = minLable.getText();
         String taste = tasteLable.getText();
         System.out.println(taste);
-
-        if (!max.isEmpty() && !min.isEmpty()) {
-            System.out.println("Wetrht");
-            useW = true;
-            useWeight = 1;
+        if ((max.isEmpty() && min.isEmpty()) && taste.isEmpty())
+            Alerts.warningAlert("Укажите какой-нибудь из фильтров");
+        else {
+            if (!max.isEmpty() && !min.isEmpty()) {
+                if (Errors.weightMM(min, max)) {
+                    if (Double.parseDouble(max) < Double.parseDouble(min)) {
+                        Alerts.warningAlert("Неверный ввод. Максимальный вес не может быть меньше минимального");
+                        maxLable.clear();
+                        minLable.clear();
+                        t = false;
+                    }
+                    useW = true;
+                    useWeight = 1;
+                }
+            }
+            if (!taste.isEmpty()) {
+                useN = true;
+                useName = 1;
+            }
+            if (t) {
+                filter = useDeleteFilter(filter, useWeight, useName, cancelSort);
+                updatingTable();
+            }
+            maxLable.clear();
+            minLable.clear();
+            tasteLable.clear();
         }
-        if (!taste.isEmpty()) {
-            System.out.println("gbnh");
-            useN = true;
-            useName = 1;
-        }
-        filter = useDeleteFilter(filter, useWeight, useName, cancelSort);
-        updatingTable();
     }
 
-    public void updatingTable(){
+    public void updatingTable() {
         Tab selectedTab = tableCandy.getSelectionModel().getSelectedItem();
         String tabTitle = null;
         if (selectedTab != null) {
@@ -169,10 +185,10 @@ public class MakeGiftController {
         } else {
             System.out.println("Нет открытых вкладок");
         }
-        switch(Objects.requireNonNull(tabTitle).toLowerCase()){
+        switch (Objects.requireNonNull(tabTitle).toLowerCase()) {
             case "печенье" -> showBiscuits();
             case "шоколад" -> showChocolate();
-            case "зефир" ->showMarshmallow();
+            case "зефир" -> showMarshmallow();
             case "конфеты" -> showSweet();
         }
         maxLable.clear();
@@ -213,7 +229,6 @@ public class MakeGiftController {
             all2 = filter.filterByWord();
             useN = false;
         }
-        updatingTable();
         return filter;
     }
 
@@ -300,32 +315,37 @@ public class MakeGiftController {
         String category = categoryLable.getText().toLowerCase();
         String name = nameLable.getText();
         int quantity = Integer.parseInt(quantityLable.getText());
-        User user = EntryController.getUser();
-        System.out.println(user.getPresent());
-        switch (category) {
-            case "печенье" -> weightt[0] += biscuit.choose(all2, user, quantity,name);
-            case "шоколад" -> weightt[1] += chocolate.choose(all2, user, quantity,name);
-            case "зефир" -> weightt[2] += marshmallow.choose(all2, user, quantity,name);
-            case "конфеты" -> weightt[3] += sweet.choose(all2, user, quantity,name);
-
-        }
-        present1.clear();
-        if (!Biscuit.biscuitsGift.isEmpty())
-            present1.addAll(Biscuit.biscuitsGift);
-        if (!Chocolate.chocolateGift.isEmpty())
-            present1.addAll(Chocolate.chocolateGift);
-        if (!Marshmallow.marshmallowGift.isEmpty())
-            present1.addAll(Marshmallow.marshmallowGift);
-        if (!Sweet.sweetGift.isEmpty())
-            present1.addAll(Sweet.sweetGift);
-        user.setPresent(present1);
+        if (category.isEmpty() || name.isEmpty() || quantity == 0)
+            Alerts.warningAlert("Заполните все поля");
+        else {
+            if (Errors.category(category) || Errors.quantity(String.valueOf(quantity)) && Errors.nameOfCandy(all, name)) {
+                User user = EntryController.getUser();
+                System.out.println(user.getPresent());
+                switch (category) {
+                    case "печенье" -> weightt[0] += biscuit.choose(all2, user, quantity, name);
+                    case "шоколад" -> weightt[1] += chocolate.choose(all2, user, quantity, name);
+                    case "зефир" -> weightt[2] += marshmallow.choose(all2, user, quantity, name);
+                    case "конфеты" -> weightt[3] += sweet.choose(all2, user, quantity, name);
+                }
+//                present1.clear();
+                if (!Biscuit.biscuitsGift.isEmpty())
+                    present1.addAll(Biscuit.biscuitsGift);
+                if (!Chocolate.chocolateGift.isEmpty())
+                    present1.addAll(Chocolate.chocolateGift);
+                if (!Marshmallow.marshmallowGift.isEmpty())
+                    present1.addAll(Marshmallow.marshmallowGift);
+                if (!Sweet.sweetGift.isEmpty())
+                    present1.addAll(Sweet.sweetGift);
+                user.setPresent(present1);
 //            return present1;
-        List<User>users = EntryController.getUsers();
-        SerializatorAuthorization.serialization(users);
-        System.out.println(present1);
-        categoryLable.clear();
-        nameLable.clear();
-        quantityLable.clear();
+                List<User> users = EntryController.getUsers();
+                SerializatorAuthorization.serialization(users);
+                System.out.println(present1);
+            }
+            categoryLable.clear();
+            nameLable.clear();
+            quantityLable.clear();
+        }
     }
 
 
@@ -413,6 +433,7 @@ public class MakeGiftController {
         all2.addAll(all);
         showBiscuits();
     }
+
     public static double count() {
         User user = EntryController.getUser();
         Calculate result = ((n) -> {
@@ -427,9 +448,9 @@ public class MakeGiftController {
         });
 
         if (result.func(user) == 0) {
-          return 0;
+            return 0;
         } else
-           return result.func(user);
+            return result.func(user);
     }
 
 }

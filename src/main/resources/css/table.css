@@ -1,0 +1,27 @@
+.tab-pane {
+    -fx-background-color: #7CB4DA;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #7CB4DA;
+    -fx-border-color: #D1D1D1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: black;
+}
+
+
+.tab-pane .tab:hover {
+    -fx-background-color: white;
+    -fx-border-color: #D1D1D1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.tab-pane .tab.active {
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #C0DBE7;
+}

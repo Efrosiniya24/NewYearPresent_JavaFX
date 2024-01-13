@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
+import Controller.Alerts;
+import Errors.Errors;
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
@@ -140,7 +144,7 @@ public class AddingToMenuController {
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Ошибка ввода-вывода\n");
         }
-      showBiscuits();
+        showBiscuits();
     }
 
     @FXML
@@ -152,32 +156,44 @@ public class AddingToMenuController {
             System.err.println("Ошибка ввода-вывода\n");
         }
 
+        String weight = weightOfCandyLable.getText();
         String category = categoryLable.getText().toLowerCase();
-        switch (category) {
-            case "печенье" -> {
-                try {
-                    FacadeAddMenu facade = new FacadeAddMenu();
-                    all.add(facade.addBiscuitMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
-                } catch (Exception e) {
-                    System.out.println(e);
+        String name = nameOfCandyLable.getText();
+
+        if (weight.isEmpty() && category.isEmpty() && name.isEmpty()) {
+            Alerts.warningAlert("Вы заполнили не все поля. Будьте внимательнее)");
+        } else {
+            if (Errors.category(category) && Errors.weight(weight)) {
+                switch (category) {
+                    case "печенье" -> {
+                        try {
+                            FacadeAddMenu facade = new FacadeAddMenu();
+                            all.add(facade.addBiscuitMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                    case "шоколад" -> {
+                        FacadeAddMenu facade = new FacadeAddMenu();
+                        all.add(facade.addChocolateMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
+                    }
+                    case "конфеты" -> {
+                        FacadeAddMenu facade = new FacadeAddMenu();
+                        all.add(facade.addSweetMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
+                    }
+                    case "зефир" -> {
+                        FacadeAddMenu facade = new FacadeAddMenu();
+                        all.add(facade.addMarshmallowMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
+                    }
                 }
+                saveFile();
+                System.out.println(all);
+                updatingTable();
             }
-            case "шоколад" -> {
-                FacadeAddMenu facade = new FacadeAddMenu();
-                all.add(facade.addChocolateMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
-            }
-            case "конфеты" -> {
-                FacadeAddMenu facade = new FacadeAddMenu();
-                all.add(facade.addSweetMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
-            }
-            case "зефир" -> {
-                FacadeAddMenu facade = new FacadeAddMenu();
-                all.add(facade.addMarshmallowMenu(nameOfCandyLable.getText(), Double.parseDouble(weightOfCandyLable.getText())));
-            }
+            weightOfCandyLable.clear();
+            categoryLable.clear();
+            nameOfCandyLable.clear();
         }
-        saveFile();
-        System.out.println(all);
-        updatingTable();
     }
 
     public static void saveFile() throws IOException, ClassNotFoundException {
@@ -190,6 +206,7 @@ public class AddingToMenuController {
         }
 //        all2.addAll(Serializator.deserialization());
     }
+
     @FXML
     public void showChocolate() {
         List<All> chocolates = new ArrayList<>();
@@ -240,6 +257,7 @@ public class AddingToMenuController {
         weightMarshmallow.setCellValueFactory(new PropertyValueFactory<>("weight"));
         tableMarshmallow.setItems(allObservableList);
     }
+
     @FXML
     public void showSweet() {
         List<All> sweet = new ArrayList<>();
@@ -257,7 +275,7 @@ public class AddingToMenuController {
         tableSweet.setItems(allObservableList);
     }
 
-    public void updatingTable(){
+    public void updatingTable() {
         Tab selectedTab = tableCandy.getSelectionModel().getSelectedItem();
         String tabTitle = null;
         if (selectedTab != null) {
@@ -266,10 +284,10 @@ public class AddingToMenuController {
         } else {
             System.out.println("Нет открытых вкладок");
         }
-        switch(Objects.requireNonNull(tabTitle).toLowerCase()){
+        switch (Objects.requireNonNull(tabTitle).toLowerCase()) {
             case "печенье" -> showBiscuits();
             case "шоколад" -> showChocolate();
-            case "зефир" ->showMarshmallow();
+            case "зефир" -> showMarshmallow();
             case "конфеты" -> showSweet();
         }
         categoryLable.clear();

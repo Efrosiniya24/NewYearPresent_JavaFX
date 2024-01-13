@@ -16,14 +16,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Menu.ChangingMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" styleClass="body" stylesheets="@photo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Admin.Menu.ChangingMenuController">
     <children>
-        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@winter.jpg" />
-            </image>
-        </ImageView>
-        <AnchorPane layoutX="32.0" layoutY="14.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+        <AnchorPane layoutX="32.0" layoutY="14.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="14.0">
             <children>
                 <Label layoutX="274.0" layoutY="22.0" text="Меню">
                     <font>
@@ -54,12 +49,12 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="12.0">
                     <image>
                         <Image url="@free-icon-exit-2001034.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#Entry" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;">
+                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#Entry" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="13.0">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -70,8 +65,8 @@
                         <Color red="0.5240740776062012" green="1.0" blue="0.04814814776182175" />
                     </color>
                 </AmbientLight>
-                <Line endX="100.0" layoutX="153.0" layoutY="47.0" startX="-100.0" />
-                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-100.0" />
+                <Line endX="100.0" layoutX="153.0" layoutY="47.0" startX="-100.0" AnchorPane.leftAnchor="52.5" AnchorPane.topAnchor="46.5" />
+                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-100.0" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="46.5" />
                 <TextField fx:id="categoryLable" layoutX="373.0" layoutY="223.0" prefHeight="23.0" prefWidth="154.0" promptText="Категория сладостей" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
                 <TextField fx:id="nameOfCandyLable" layoutX="373.0" layoutY="254.0" prefHeight="27.0" prefWidth="122.0" promptText="Название сладости" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
                 <TextField fx:id="weightOfCandyLable" layoutX="373.0" layoutY="286.0" prefHeight="23.0" prefWidth="154.0" promptText="Масса" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
@@ -86,7 +81,7 @@
                 <TextField fx:id="nameOfNewCandyLable" layoutX="506.0" layoutY="254.0" prefHeight="27.0" prefWidth="122.0" promptText="Новое название" style="-fx-background-color: #fafafa; -fx-border-color: #D1D1D1; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
             <AnchorPane layoutX="50.0" layoutY="74.0" prefHeight="247.0" prefWidth="253.0">
                <children>
-                  <TabPane fx:id="tableCandy" layoutX="8.0" layoutY="6.0" prefHeight="241.0" prefWidth="256.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tableCandy" layoutX="8.0" layoutY="6.0" prefHeight="241.0" prefWidth="256.0" styleClass="tab-pane" stylesheets="@../../../css/table.css" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
                         <Tab fx:id="biscuitColumn" onSelectionChanged="#showBiscuits" text="Печенье">
                            <content>

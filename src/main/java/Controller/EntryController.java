@@ -12,6 +12,8 @@ import com.example.laba5.NewYearApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 public class EntryController {
 
@@ -44,51 +46,52 @@ public class EntryController {
         EntryController.users = users;
     }
 
-    public static User getUser(){
+    public static User getUser() {
         return users.get(0);
     }
 
     @FXML
-    public void registration(){
+    public void registration() {
         NewYearApplication.showRegistration();
     }
 
 
     @FXML
     void Entry(ActionEvent event) throws IOException, ClassNotFoundException, InterruptedException {
-
         String login = loginField.getText();
         System.out.println(loginField.getText());
         String password = passwordField.getText();
 
         if (login.isEmpty() && password.isEmpty()) {
-            warningAlert("Введите логин и пароль");
+            Alerts.warningAlert("Введите логин и пароль");
         }
-        List<User> users = SerializatorAuthorization.deserialization();
-        if (users != null) {
-            IteratorUser<User> iterator = new IteratorUser<>(users, 0);
-            for (int i = 0; iterator.hasNext(); i++) {
-                User user = iterator.next();
-                if (user.getPassword().equals(password) && user.getLogin().equals(login)) {
-                    indexUser = i;
-                    break;
+        else {
+            List<User> users = SerializatorAuthorization.deserialization();
+            if (users != null) {
+                IteratorUser<User> iterator = new IteratorUser<>(users, 0);
+                for (int i = 0; iterator.hasNext(); i++) {
+                    User user = iterator.next();
+                    if (user.getPassword().equals(password) && user.getLogin().equals(login)) {
+                        indexUser = i;
+                        break;
+                    }
                 }
             }
+            if (indexUser == -1) {
+                Alerts.warningAlert("""
+                        Вы не зарегистрированы(!
+                        Пройдите регистрацию или введите логин и пароль заново
+                        Будьте внимательнее)
+                        """);
+            } else {
+                if (!users.get(indexUser).getBan()) {
+                    User user = operations(login, password, users.get(indexUser).getPresent());
+                    users.set(indexUser, user);
+                    indexUser = -1;
+                } else Alerts.warningAlert("К сожалению, мы не можем предоставить Вам доступ(. Вы заблокированы");
+            }
+            SerializatorAuthorization.serialization(users);
         }
-        if (indexUser == -1) {
-            warningAlert("""
-                    Вы не зарегистрированы(!
-                    Пройдите регистрацию или введите логин и пароль заново
-                    Будьте внимательнее)
-                    """);
-        } else {
-            if (!users.get(indexUser).getBan()) {
-                User user = operations(login, password, users.get(indexUser).getPresent());
-                users.set(indexUser, user);
-                indexUser = -1;
-            } else warningAlert("К сожалению, мы не можем предоставить Вам доступ(. Вы заблокированы");
-        }
-        SerializatorAuthorization.serialization(users);
     }
 
     public static User operations(String login, String password, List<All> present) throws InterruptedException, IOException, ClassNotFoundException {
@@ -96,22 +99,13 @@ public class EntryController {
         User user;
         if (password.equals("1111") && login.equals("admin")) {
             user = userFactory.createUser("administrator", login, password, false, present);
-            users.set(0,user);
+            users.set(0, user);
             NewYearApplication.showMainAdmin();
-        }
-        else {
+        } else {
             user = userFactory.createUser("customer", login, password, false, present);
-            users.set(0,user);
+            users.set(0, user);
             NewYearApplication.showMainCustomer();
         }
         return user;
-    }
-
-
-    private void warningAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Ошибка!");
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

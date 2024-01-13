@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import Controller.Alerts;
 import Controller.SerializatorAuthorization;
+import Errors.Errors;
 import Model.User.User;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
@@ -68,9 +70,10 @@ public class deleteUsersController {
     }
 
     @FXML
-    public void deleteUsers(){
+    public void deleteUsers() {
         NewYearApplication.userWork();
     }
+
     @FXML
     void banUsers(ActionEvent event) {
         NewYearApplication.showBunUsers();
@@ -85,14 +88,21 @@ public class deleteUsersController {
     void delete(ActionEvent event) throws IOException, ClassNotFoundException {
         List<User> users = SerializatorAuthorization.deserialization();
         String login = loginLable.getText();
-        Optional<User> foundUser = users.stream()
-                .filter(user -> user.getLogin().equals(login))
-                .findFirst();
-        if (foundUser.isPresent()) {
-            int num = users.indexOf(foundUser.get());
-            users.remove(num);
-            SerializatorAuthorization.serialization(users);
-            NewYearApplication.userWork();
+        if (login.isEmpty()) {
+            Alerts.warningAlert("ВЫ не ввели логин. Будьте внимательнее)");
+        } else {
+            if(Errors.loginOfUser(users, login)) {
+                Optional<User> foundUser = users.stream()
+                        .filter(user -> user.getLogin().equals(login))
+                        .findFirst();
+                if (foundUser.isPresent()) {
+                    int num = users.indexOf(foundUser.get());
+                    users.remove(num);
+                    SerializatorAuthorization.serialization(users);
+                    NewYearApplication.userWork();
+                }
+            }
+            loginLable.clear();
         }
     }
 

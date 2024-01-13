@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import Errors.Errors;
 import Model.Candy.All;
 import Model.User.Customer;
 import Model.User.User;
@@ -50,13 +51,30 @@ public class RegistrationController {
         String login = loginField.getText();
         String password = passwordField.getText();
         String repeatPassword = repeatPasswordField.getText();
-        List<All> p = new ArrayList<>();
+        boolean u = true;
 
-        users = SerializatorAuthorization.deserialization();
-        User customer = new Customer(login, password, false, p);
-        users.add(customer);
-        SerializatorAuthorization.serialization(users);
-        EntryController.operations(login, password, p);
+        if (login.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+            Alerts.warningAlert("Не все поля заполнены. Будьте внимательнее)");
+        }
+        else if (Errors.printPasswort(repeatPassword, password)) {
+            List<All> p = new ArrayList<>();
+            for (User user : users) {
+                if (user.getPassword().equals(password) && user.getLogin().equals(login) || password.equals("1111") && login.equals("admin")) {
+                    Alerts.warningAlert("Такой пользовтель уже существует. Повторите ввод");
+                    u = false;
+                }
+            }
+            if (u) {
+                users = SerializatorAuthorization.deserialization();
+                User customer = new Customer(login, password, false, p);
+                users.add(customer);
+                SerializatorAuthorization.serialization(users);
+                EntryController.operations(login, password, p);
+            }
+        }
+        loginField.clear();
+        passwordField.clear();
+        repeatPasswordField.clear();
     }
 
     @FXML

@@ -61,6 +61,7 @@ public class Biscuit extends All implements Serializable {
                     biscuitsGift.add(user.getPresent().get(u));
                 }
             }
+            System.out.println(biscuitsGift);
         }
         if (!(biscuitsGift.contains(all.getName()))) {
             biscuitsGift.add(all);
@@ -121,7 +122,7 @@ public class Biscuit extends All implements Serializable {
         int j = -1;
         int i = 0;
         int size = all.size();
-        for (i = 0; i < size; i++) {
+        for (; i < size; i++) {
             if (all.get(i) instanceof Biscuit) {
                 j++;
                 if(all.get(i).getName().equals(name))

@@ -15,35 +15,30 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Customer.MakeGiftController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #B9B9D5;" styleClass="body" stylesheets="@photo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Customer.MakeGiftController">
     <children>
-        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="467.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@winter.jpg" />
-            </image>
-        </ImageView>
-        <AnchorPane layoutX="22.0" layoutY="18.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+        <AnchorPane layoutX="22.0" layoutY="18.0" prefHeight="348.0" prefWidth="638.0" style="-fx-background-color: #fafafa; -fx-border-color: #E6E6E6; -fx-background-radius: 20px; -fx-border-radius: 20px;" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="18.0">
             <children>
                 <Label layoutX="275.0" layoutY="28.0" text="Меню">
                     <font>
                         <Font name="Arial" size="33.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="exit" fitHeight="23.0" fitWidth="25.0" layoutX="605.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="12.0">
                     <image>
                         <Image url="@free-icon-exit-2001034.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;">
+                <Button fx:id="exitButton" layoutX="602.0" layoutY="12.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: transpanient;" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="12.0">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-101.0599365234375" />
-                <Line endX="176.9400634765625" layoutX="87.0" layoutY="46.0" startX="-31.659912109375" startY="7.62939453125E-6" />
-            <AnchorPane layoutX="-4.0" layoutY="60.0" prefHeight="247.0" prefWidth="253.0">
+                <Line endX="100.0" layoutX="475.0" layoutY="47.0" startX="-101.0599365234375" AnchorPane.rightAnchor="62.5" AnchorPane.topAnchor="46.5" />
+                <Line endX="176.9400634765625" layoutX="87.0" layoutY="49.0" startX="-31.659912109375" startY="7.62939453125E-6" AnchorPane.leftAnchor="54.63298034667969" AnchorPane.topAnchor="48.29289323091507" />
+            <AnchorPane layoutX="-4.0" layoutY="60.0"   prefHeight="247.0" prefWidth="253.0">
                <children>
-                  <TabPane fx:id="tableCandy" layoutX="8.0" layoutY="6.0" prefHeight="241.0" prefWidth="256.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tableCandy" layoutX="8.0" layoutY="6.0" styleClass="tab-pane" stylesheets="@../../../css/table.css" prefHeight="241.0" prefWidth="256.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="biscuitColumn" onSelectionChanged="#showBiscuits" text="Печенье">
                         <content>
@@ -159,7 +154,7 @@
                   <Font name="Arial" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="cancelFilterWeight" layoutX="434.0" layoutY="122.0" mnemonicParsing="false" onAction="#cancelFilterWeight" prefHeight="23.0" prefWidth="25.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: ;" text="-">
+            <Button fx:id="cancelFilterWeight" layoutX="434.0" layoutY="122.0" mnemonicParsing="false" onAction="#cancelFilterWeight" prefHeight="23.0" prefWidth="25.0" style="-fx-background-color: #7CB4DA; ;" text="-">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -167,7 +162,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="cancelFilterTaste" layoutX="434.0" layoutY="159.0" mnemonicParsing="false" onAction="#cancelFilterTaste" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: ;" text="-">
+            <Button fx:id="cancelFilterTaste" layoutX="434.0" layoutY="159.0" mnemonicParsing="false" onAction="#cancelFilterTaste" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: #7CB4DA; ;" text="-">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -175,7 +170,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="addSortAscending" layoutX="591.0" layoutY="122.0" mnemonicParsing="false" onAction="#addSortAscending" prefHeight="27.0" prefWidth="22.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: ;" text="+">
+            <Button fx:id="addSortAscending" layoutX="591.0" layoutY="122.0" mnemonicParsing="false" onAction="#addSortAscending" prefHeight="27.0" prefWidth="22.0" style="-fx-background-color: #7CB4DA; ;" text="+">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -183,7 +178,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="addSortDecreasing" layoutX="591.0" layoutY="157.0" mnemonicParsing="false" onAction="#addSortDecreasing" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: ;" text="+">
+            <Button fx:id="addSortDecreasing" layoutX="591.0" layoutY="157.0" mnemonicParsing="false" onAction="#addSortDecreasing" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #7CB4DA;;" text="+">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -214,7 +209,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Button fx:id="makeButton113" layoutX="593.0" layoutY="282.0" mnemonicParsing="false" onAction="#makePresent" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #7CB4DA; -fx-background-radius: ;">
+            <Button fx:id="makeButton113" layoutX="593.0" layoutY="282.0" mnemonicParsing="false" onAction="#makePresent" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #7CB4DA;">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -227,7 +222,7 @@
                   <Image url="@free-icon-shopping-basket-6517856.png" />
                </image>
             </ImageView>
-            <Button fx:id="shoppingCartButton" layoutX="595.0" layoutY="277.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transpanient; -fx-background-radius: ;">
+            <Button fx:id="shoppingCartButton" layoutX="595.0" layoutY="277.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transpanient">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>

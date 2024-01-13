@@ -3,13 +3,17 @@ package Controller.Admin.Menu;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.DoubleToIntFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import Controller.Alerts;
+import Errors.Errors;
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -142,92 +146,102 @@ public class ChangingMenuController {
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Ошибка ввода-вывода\n");
         }
-        try {
-            String category = categoryLable.getText().toLowerCase();
-            switch (category) {
-                case "печенье" -> {
-                    All biscuit = new Biscuit();
-                    String candyName = nameOfCandyLable.getText();
-                    All foundCandy = null;
 
-                    for (All candy : all) {
-                        if (candy.getName().equals(candyName)) {
-                            foundCandy = candy;
-                            break;
+        String category = categoryLable.getText().toLowerCase();
+        String newName = nameOfNewCandyLable.getText().toLowerCase();
+        String name = nameOfCandyLable.getText().toLowerCase();
+        String weight = weightOfCandyLable.getText().toLowerCase();
+
+        if (category.isEmpty() || newName.isEmpty() || name.isEmpty() || weight.isEmpty()) {
+            Alerts.warningAlert("Вы заполнили не все поля. Будьте внимательнее)");
+        } else {
+            if (Errors.weight(weight) && Errors.category(category) && Errors.nameOfCandy(all, name)) {
+                switch (category) {
+                    case "печенье" -> {
+                        All biscuit = new Biscuit();
+                        String candyName = nameOfCandyLable.getText();
+                        All foundCandy = null;
+
+                        for (All candy : all) {
+                            if (candy.getName().equals(candyName)) {
+                                foundCandy = candy;
+                                break;
+                            }
                         }
+                        int num = all.indexOf(foundCandy);
+
+                        biscuit.setName(nameOfNewCandyLable.getText());
+                        biscuit.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                        all.set(num, biscuit);
                     }
-                    int num = all.indexOf(foundCandy);
+                    case "шоколад" -> {
+                        All chocolate = new Chocolate();
+                        String candyName = nameOfCandyLable.getText();
+                        All foundCandy = null;
 
-                    biscuit.setName(nameOfNewCandyLable.getText());
-                    biscuit.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
-
-                    all.set(num, biscuit);
-                }
-                case "шоколад" -> {
-                    All chocolate = new Chocolate();
-                    String candyName = nameOfCandyLable.getText();
-                    All foundCandy = null;
-
-                    for (All candy : all) {
-                        if (candy.getName().equals(candyName)) {
-                            foundCandy = candy;
-                            break;
+                        for (All candy : all) {
+                            if (candy.getName().equals(candyName)) {
+                                foundCandy = candy;
+                                break;
+                            }
                         }
+
+                        int num = all.indexOf(foundCandy);
+
+                        chocolate.setName(nameOfNewCandyLable.getText());
+                        chocolate.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                        all.set(num, chocolate);
                     }
+                    case "конфеты" -> {
+                        All sweet = new Sweet();
+                        String candyName = nameOfCandyLable.getText();
+                        All foundCandy = null;
 
-                    int num = all.indexOf(chocolate);
-
-                    chocolate.setName(nameOfNewCandyLable.getText());
-                    chocolate.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
-
-                    all.set(num, chocolate);
-                }
-                case "конфеты" -> {
-                    All sweet = new Sweet();
-
-                    String candyName = nameOfCandyLable.getText();
-                    All foundCandy = null;
-
-                    for (All candy : all) {
-                        if (candy.getName().equals(candyName)) {
-                            foundCandy = candy;
-                            break;
+                        for (All candy : all) {
+                            if (candy.getName().equals(candyName)) {
+                                foundCandy = candy;
+                                break;
+                            }
                         }
+                        int num = all.indexOf(foundCandy);
+
+                        sweet.setName(nameOfNewCandyLable.getText());
+                        sweet.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                        all.set(num, sweet);
                     }
+                    case "зефир" -> {
+                        All marshmallow = new Marshmallow();
+                        String candyName = nameOfCandyLable.getText();
+                        All foundCandy = null;
 
-                    int num = all.indexOf(sweet);
-
-                    sweet.setName(nameOfNewCandyLable.getText());
-                    sweet.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
-
-                    all.set(num, sweet);
-                }
-                case "зефир" -> {
-                    All marshmallow = new Marshmallow();
-                    String candyName = nameOfCandyLable.getText();
-                    All foundCandy = null;
-
-                    for (All candy : all) {
-                        if (candy.getName().equals(candyName)) {
-                            foundCandy = candy;
-                            break;
+                        for (All candy : all) {
+                            if (candy.getName().equals(candyName)) {
+                                foundCandy = candy;
+                                break;
+                            }
                         }
+
+                        int num = all.indexOf(foundCandy);
+
+                        marshmallow.setName(nameOfNewCandyLable.getText());
+                        marshmallow.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
+
+                        all.set(num, marshmallow);
                     }
 
-                    int num = all.indexOf(marshmallow);
-
-                    marshmallow.setName(nameOfNewCandyLable.getText());
-                    marshmallow.setWeight(Double.parseDouble(weightOfCandyLable.getText()));
-
-                    all.set(num, marshmallow);
                 }
+                saveFile(all);
+                System.out.println(all);
+                updatingTable();
             }
-        } catch (Exception e) {
-            System.out.println(e);
+            categoryLable.clear();
+            nameOfNewCandyLable.clear();
+            nameOfCandyLable.clear();
+            weightOfCandyLable.clear();
         }
-        saveFile(all);
-        System.out.println(all);
-        updatingTable();
     }
 
     public static void saveFile(List<All> all) throws IOException, ClassNotFoundException {

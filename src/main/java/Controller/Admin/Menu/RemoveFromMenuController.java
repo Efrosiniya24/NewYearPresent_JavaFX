@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import Controller.Alerts;
+import Errors.Errors;
 import Model.Candy.*;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -153,31 +154,37 @@ public class RemoveFromMenuController {
             System.err.println("Ошибка ввода-вывода\n");
         }
         String category = categoryLable.getText().toLowerCase();
-        switch (category) {
-            case "печенье" -> {
-                All biscuit = new Biscuit();
-//                int num = biscuit.chooseNumber();
-//                if (num != -1)
-                biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
-//                else
-//                    System.out.println("Печенья нет...");
+        String name = nameOfCandyLable.getText().toLowerCase();
+
+        if (category.isEmpty() || name.isEmpty()) {
+            Alerts.warningAlert("Вы заполнили не все поля. Будьте внимательнее)");
+        } else {
+            if (Errors.category(category) && Errors.nameOfCandy(all, name)) {
+                switch (category) {
+                    case "печенье" -> {
+                        All biscuit = new Biscuit();
+                        biscuit.delete(all, nameOfCandyLable.getText().toLowerCase());
+                    }
+                    case "шоколад" -> {
+                        All chocolate = new Chocolate();
+                        chocolate.delete(all, nameOfCandyLable.getText().toLowerCase());
+                    }
+                    case "конфеты" -> {
+                        All sweet = new Sweet();
+                        sweet.delete(all, nameOfCandyLable.getText().toLowerCase());
+                    }
+                    case "зефир" -> {
+                        All marshmallow = new Marshmallow();
+                        marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
+                    }
+                }
+                saveFile(all);
+                System.out.println(all);
+                updatingTable();
             }
-            case "шоколад" -> {
-                All chocolate = new Chocolate();
-                chocolate.delete(all, nameOfCandyLable.getText().toLowerCase());
-            }
-            case "конфеты" -> {
-                All sweet = new Sweet();
-                sweet.delete(all, nameOfCandyLable.getText().toLowerCase());
-            }
-            case "зефир" -> {
-                All marshmallow = new Marshmallow();
-                marshmallow.delete(all, nameOfCandyLable.getText().toLowerCase());
-            }
+            categoryLable.clear();
+            nameOfCandyLable.clear();
         }
-        saveFile(all);
-        System.out.println(all);
-        updatingTable();
     }
 
     public void saveFile(List<All> all) throws IOException, ClassNotFoundException {
@@ -193,6 +200,7 @@ public class RemoveFromMenuController {
         all2.addAll(Serializator.deserialization());
         updatingTable();
     }
+
     @FXML
     public void showChocolate() {
         List<All> chocolates = new ArrayList<>();
@@ -261,7 +269,7 @@ public class RemoveFromMenuController {
         tableSweet.setItems(allObservableList);
     }
 
-    public void updatingTable(){
+    public void updatingTable() {
         Tab selectedTab = tableCandy.getSelectionModel().getSelectedItem();
         String tabTitle = null;
         if (selectedTab != null) {
@@ -270,10 +278,10 @@ public class RemoveFromMenuController {
         } else {
             System.out.println("Нет открытых вкладок");
         }
-        switch(Objects.requireNonNull(tabTitle).toLowerCase()){
+        switch (Objects.requireNonNull(tabTitle).toLowerCase()) {
             case "печенье" -> showBiscuits();
             case "шоколад" -> showChocolate();
-            case "зефир" ->showMarshmallow();
+            case "зефир" -> showMarshmallow();
             case "конфеты" -> showSweet();
         }
         categoryLable.clear();
