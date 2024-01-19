@@ -39,7 +39,7 @@ public class WeightOfGiftController {
 
     @FXML
     void exit(ActionEvent event) {
-        NewYearApplication.userWork();
+        NewYearApplication.showAuthorization();
     }
 
     @FXML

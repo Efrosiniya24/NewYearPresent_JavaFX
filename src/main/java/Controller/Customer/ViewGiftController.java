@@ -127,7 +127,10 @@ public class ViewGiftController {
 
         nameBiskuit.setCellValueFactory(new PropertyValueFactory<>("name"));
         weightBiscuit.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        if(EntryController.getUser().getPresent().isEmpty())
+            tableBisciut.setItems(FXCollections.emptyObservableList());
         tableBisciut.setItems(allObservableList);
+
     }
     @FXML
     public void showMarshmallow() {
@@ -168,9 +171,12 @@ public class ViewGiftController {
         boolean t = true;
         double weightt = 0;
         User user = EntryController.getUser();
+        System.out.println(EntryController.getUser().getPresent());
         int size = EntryController.getUser().getPresent().size();
         for (int i = 0; i < size; i++) {
-            weightt += user.getPresent().get(i).getAllWeightPresent();
+            weightt += user.getPresent().get(i).getWeight();
+            System.out.println(user.getPresent().get(i));
+            System.out.println(weightt);
         }
         if (weightt != 0) {
             t = false;
@@ -187,12 +193,12 @@ public class ViewGiftController {
                 marshmallow.viewGift(user);
 
             All sweet = new Sweet();
-            if (sweet.present() != null)
-                sweet.viewGift(user);
+// u
+            sweet.viewGift(user);
 
             System.out.println("Общий вес: " + weightt + "\n");
-            showBiscuits();
-        }
-    }
 
+        }
+        showBiscuits();
+    }
 }

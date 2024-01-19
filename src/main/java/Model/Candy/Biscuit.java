@@ -14,7 +14,6 @@ import java.util.*;
 public class Biscuit extends All implements Serializable {
     static List<All> biscuit = new ArrayList<>();
     public static List<All> biscuitsGift = new ArrayList<>();
-    static boolean b = true;
 
     public static List<All> getBiscuit() {
         return biscuit;
@@ -55,13 +54,9 @@ public class Biscuit extends All implements Serializable {
     @Override
     public void addGift(int i, All all, User user) {
         if (biscuitsGift.isEmpty()) {
-            for (int u = 0; u < user.getPresent().size(); u++) {
-                b = false;
-                if (user.getPresent().get(u) instanceof Biscuit) {
+            for (int u = 0; u < user.getPresent().size(); u++)
+                if (user.getPresent().get(u) instanceof Biscuit)
                     biscuitsGift.add(user.getPresent().get(u));
-                }
-            }
-            System.out.println(biscuitsGift);
         }
         if (!(biscuitsGift.contains(all.getName()))) {
             biscuitsGift.add(all);
@@ -73,9 +68,12 @@ public class Biscuit extends All implements Serializable {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
         biscuitsGift.clear();
-        for (int i = 0; i < user.getPresent().size(); i++)
-            if (user.getPresent().get(i) instanceof Biscuit)
+        int sizee = user.getPresent().size();
+        for (int i = 0; i < sizee; i++)
+            if (user.getPresent().get(i) instanceof Biscuit) {
                 biscuitsGift.add(user.getPresent().get(i));
+                System.out.println(user.getPresent().get(i));
+            }
         int size = biscuitsGift.size();
         if (size == 0)
             System.out.println("Печенья нет");
@@ -87,7 +85,7 @@ public class Biscuit extends All implements Serializable {
                 } else
                     for (int u = 0; u < name.size(); u++)
                         if (name.get(u).equals(all.getName()))
-                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
+                            allWeight.set(u, (allWeight.get(u) + all.getWeight()));
             }
             biscuitsGift.clear();
             for(int i = 0; i < name.size(); i++) {
@@ -98,7 +96,29 @@ public class Biscuit extends All implements Serializable {
             }
             System.out.println(biscuitsGift);
         }
+//        Map<String, Double> biscuitMap = new HashMap<>();
+//        biscuitsGift.clear();
+//        System.out.println(user.getPresent());
+//        for (All present : user.getPresent())
+//            if (present instanceof Biscuit)
+//                biscuitMap.put(present.getName(), biscuitMap.getOrDefault(present.getName(), 0.0) + present.getAllWeightPresent());
+//
+//        if (biscuitMap.isEmpty()) {
+//            System.out.println("Печенья нет");
+//        } else {
+//            List<Biscuit> biscuitsGift = new ArrayList<>();
+//
+//            for (Map.Entry<String, Double> entry : biscuitMap.entrySet()) {
+//                Biscuit biscuit = new Biscuit();
+//                biscuit.setName(entry.getKey());
+//                biscuit.setWeight(entry.getValue());
+//                biscuitsGift.add(biscuit);
+//            }
+//            System.out.println(biscuitsGift);
+//            System.out.println(biscuitsGift);
+//        }
     }
+
     public static List<All> getBiscuitsGift() {
         return biscuitsGift;
     }
@@ -125,14 +145,19 @@ public class Biscuit extends All implements Serializable {
         for (; i < size; i++) {
             if (all.get(i) instanceof Biscuit) {
                 j++;
-                if(all.get(i).getName().equals(name))
+                if (all.get(i).getName().equals(name))
                     break;
             }
         }
-        if (j>-1) {
+        if (j > -1) {
             addGift(i, all.get(i), user);
             allWeihgt += (quantity * all.get(i).getWeight());
+//            biscuitsGift.get(i).setWeight(allWeihgt);
+//            System.out.println(all.get(i).getWeight());
+//            System.out.println(allWeihgt);
             all.get(i).setAllWeightPresent(allWeihgt);
+//            System.out.println(all.get(i).getAllWeightPresent());
+//            System.out.println(user.getPresent());
             return allWeihgt;
         }
         return 0;

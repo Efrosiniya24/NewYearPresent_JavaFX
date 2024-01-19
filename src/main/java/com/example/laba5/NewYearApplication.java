@@ -85,8 +85,6 @@ public class NewYearApplication extends Application {
             Parent root = loader.load();
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Добавление в меню");
-//            Scene scene = new Scene(root);
-//            scene.getStylesheets().add("table.css");
             primaryStage.show();
         } catch (Exception e) {
             System.out.println(e);

@@ -48,11 +48,11 @@ public class RegistrationController {
 
     @FXML
     void registration(ActionEvent event) throws IOException, ClassNotFoundException, InterruptedException {
+        List<User> users = SerializatorAuthorization.deserialization();
         String login = loginField.getText();
         String password = passwordField.getText();
         String repeatPassword = repeatPasswordField.getText();
         boolean u = true;
-
         if (login.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
             Alerts.warningAlert("Не все поля заполнены. Будьте внимательнее)");
         }
@@ -65,10 +65,15 @@ public class RegistrationController {
                 }
             }
             if (u) {
+// EntryController.setIndexUser(users.size());
+                System.out.println(users);
+                System.out.println(users.size());
                 users = SerializatorAuthorization.deserialization();
                 User customer = new Customer(login, password, false, p);
                 users.add(customer);
                 SerializatorAuthorization.serialization(users);
+//                EntryController.setUserr(customer);////////////////////////////////////
+                EntryController.setUsers(users);
                 EntryController.operations(login, password, p);
             }
         }

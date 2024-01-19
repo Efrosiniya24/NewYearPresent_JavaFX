@@ -5,6 +5,7 @@ import Model.Candy.All;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class User implements Serializable {
     private String login;
@@ -18,6 +19,7 @@ public abstract class User implements Serializable {
         this.ban = ban;
         this.present = present;
     }
+
 
     public void setLogin(String login) {
         this.login = login;
@@ -67,5 +69,16 @@ public abstract class User implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return ban == user.ban && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(present, user.present);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, ban, present);
+    }
 }

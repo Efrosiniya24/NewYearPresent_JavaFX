@@ -10,8 +10,10 @@ import javafx.collections.ObservableList;
 public class Sweet extends All implements Serializable {
     static List<All> sweet = new ArrayList<>();
     public static List<All> sweetGift = new ArrayList<>();
-    static boolean b = true;
 
+    public static List<All> getSweet() {
+        return sweet;
+    }
 
     @Override
     public ObservableList<All> view(List<All> all) {
@@ -26,13 +28,9 @@ public class Sweet extends All implements Serializable {
     @Override
     public void addGift(int i, All all, User user) {
         if (sweetGift.isEmpty()) {
-            for (int u = 0; u < user.getPresent().size(); u++) {
-                b = false;
-                if (user.getPresent().get(u) instanceof Sweet) {
+            for (int u = 0; u < user.getPresent().size(); u++)
+                if (user.getPresent().get(u) instanceof Sweet)
                     sweetGift.add(user.getPresent().get(u));
-                }
-                System.out.println(sweetGift);
-            }
         }
         if (!sweetGift.contains(all.getName())) {
             sweetGift.add(all);
@@ -54,13 +52,14 @@ public class Sweet extends All implements Serializable {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
         sweetGift.clear();
-        for (int i = 0; i < user.getPresent().size(); i++) {
+        int sizee = user.getPresent().size();
+        for (int i = 0; i < sizee; i++) {
             if (user.getPresent().get(i) instanceof Sweet)
                 sweetGift.add(user.getPresent().get(i));
         }
         int size = sweetGift.size();
         if (size == 0)
-            System.out.println("Печенья нет");
+            System.out.println("Конфет нет");
         else {
             for (All all : sweetGift) {
                 if (!name.contains(all.getName())) {
@@ -69,7 +68,7 @@ public class Sweet extends All implements Serializable {
                 } else
                     for (int u = 0; u < name.size(); u++)
                         if (name.get(u).equals(all.getName()))
-                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
+                            allWeight.set(u, (allWeight.get(u) + all.getWeight()));
             }
             sweetGift.clear();
             for (int i = 0; i < name.size(); i++) {
@@ -128,14 +127,14 @@ public class Sweet extends All implements Serializable {
         int j = -1;
         int i = 0;
         int size = all.size();
-        for (i = 0; i < size; i++) {
+        for (; i < size; i++) {
             if (all.get(i) instanceof Sweet) {
                 j++;
-                if(all.get(i).getName().equals(name))
+                if (all.get(i).getName().equals(name))
                     break;
             }
         }
-        if (j>-1) {
+        if (j > -1) {
             addGift(i, all.get(i), user);
             allWeihgt += (quantity * all.get(i).getWeight());
             all.get(i).setAllWeightPresent(allWeihgt);

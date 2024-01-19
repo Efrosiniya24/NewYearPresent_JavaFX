@@ -166,12 +166,8 @@ public class AddingToMenuController {
             if (Errors.category(category) && Errors.weight(weight)) {
                 switch (category) {
                     case "печенье" -> {
-                        try {
-                            FacadeAddMenu facade = new FacadeAddMenu();
-                            all.add(facade.addBiscuitMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
+                        FacadeAddMenu facade = new FacadeAddMenu();
+                        all.add(facade.addBiscuitMenu(nameOfCandyLable.getText(), Double.parseDouble(weight)));
                     }
                     case "шоколад" -> {
                         FacadeAddMenu facade = new FacadeAddMenu();

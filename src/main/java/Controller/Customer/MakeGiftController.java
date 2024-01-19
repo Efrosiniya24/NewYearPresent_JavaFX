@@ -9,6 +9,7 @@ import Controller.EntryController;
 import Controller.SerializatorAuthorization;
 import Errors.Errors;
 import Model.Candy.*;
+import Model.User.Customer;
 import Model.User.User;
 import com.example.laba5.NewYearApplication;
 import javafx.collections.FXCollections;
@@ -38,7 +39,6 @@ public class MakeGiftController {
     private static boolean useN;
     private static int sort;
     private static boolean cancelSort;
-    private static List<All> present1 = new ArrayList<>();
     @FXML
     public TableView<All> tableChocolate;
     @FXML
@@ -311,7 +311,10 @@ public class MakeGiftController {
 
 
     @FXML
-    void shoppingCart(ActionEvent event) throws IOException {
+    void shoppingCart(ActionEvent event) throws IOException, ClassNotFoundException {
+        List<User>users = EntryController.getUsers();
+        System.out.println(users);
+        List<All> present1 = new ArrayList<>();
         String category = categoryLable.getText().toLowerCase();
         String name = nameLable.getText();
         int quantity = Integer.parseInt(quantityLable.getText());
@@ -320,14 +323,13 @@ public class MakeGiftController {
         else {
             if (Errors.category(category) || Errors.quantity(String.valueOf(quantity)) && Errors.nameOfCandy(all, name)) {
                 User user = EntryController.getUser();
-                System.out.println(user.getPresent());
+                System.out.println(user);
                 switch (category) {
                     case "печенье" -> weightt[0] += biscuit.choose(all2, user, quantity, name);
                     case "шоколад" -> weightt[1] += chocolate.choose(all2, user, quantity, name);
                     case "зефир" -> weightt[2] += marshmallow.choose(all2, user, quantity, name);
                     case "конфеты" -> weightt[3] += sweet.choose(all2, user, quantity, name);
                 }
-//                present1.clear();
                 if (!Biscuit.biscuitsGift.isEmpty())
                     present1.addAll(Biscuit.biscuitsGift);
                 if (!Chocolate.chocolateGift.isEmpty())
@@ -336,11 +338,32 @@ public class MakeGiftController {
                     present1.addAll(Marshmallow.marshmallowGift);
                 if (!Sweet.sweetGift.isEmpty())
                     present1.addAll(Sweet.sweetGift);
-                user.setPresent(present1);
-//            return present1;
-                List<User> users = EntryController.getUsers();
-                SerializatorAuthorization.serialization(users);
+                int index = users.indexOf(user);
+                System.out.println(user.getPresent());
                 System.out.println(present1);
+                user.setPresent(present1);
+                System.out.println(user.getPresent());
+//                List<User> users = EntryController.getUsers();
+//                users.remove(user);
+//                user.setPresent(present1);
+//                users.add(user);
+//                user.setPresent(present1);
+//                System.out.println(user.getPresent());//////////////////////////////////////////////////////////////////////
+////            return present1;
+//                EntryController.setUser(user);
+//                List<User> users = EntryController.getUsers();
+//                users.set(EntryController.getIndexUser(), user);
+
+
+                System.out.println(index);
+                if (index != -1) {
+                    user.setPresent(present1);
+                System.out.println(user);
+                    users.set(index, user);
+                System.out.println(users);
+                    SerializatorAuthorization.serialization(users);
+                }
+//                SerializatorAuthorization.serialization(users);
             }
             categoryLable.clear();
             nameLable.clear();
@@ -443,6 +466,7 @@ public class MakeGiftController {
             int size = user.getPresent().size();
             for (int i = 0; i < size; i++) {
                 w1 += user.getPresent().get(i).getAllWeightPresent();
+                System.out.println(user.getPresent().get(i));
             }
             return w1;
         });

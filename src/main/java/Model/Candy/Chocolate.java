@@ -10,7 +10,10 @@ import java.util.*;
 public class Chocolate extends All implements Serializable {
     static List<All> chocolate = new ArrayList<>();
     public static List<All> chocolateGift = new ArrayList<>();
-    static boolean b = true;
+
+    public static List<All> getChocolate() {
+        return chocolate;
+    }
 
     @Override
     public ObservableList<All> view(List<All> all) {
@@ -35,12 +38,9 @@ public class Chocolate extends All implements Serializable {
     @Override
     public void addGift(int i, All all, User user) {
         if (chocolateGift.isEmpty()) {
-            for (int u = 0; u < user.getPresent().size(); u++) {
-                b = false;
-                if (user.getPresent().get(u) instanceof Biscuit) {
+            for (int u = 0; u < user.getPresent().size(); u++)
+                if (user.getPresent().get(u) instanceof Chocolate)
                     chocolateGift.add(user.getPresent().get(u));
-                }
-            }
         }
         if (!chocolateGift.contains(all.getName())) {
             chocolateGift.add(all);
@@ -52,13 +52,14 @@ public class Chocolate extends All implements Serializable {
         List<String> name = new ArrayList<>();
         List<Double> allWeight = new ArrayList<>();
         chocolateGift.clear();
-        for (int i = 0; i < user.getPresent().size(); i++) {
+        int sizee = user.getPresent().size();
+        for (int i = 0; i < sizee; i++) {
             if (user.getPresent().get(i) instanceof Chocolate)
                 chocolateGift.add(user.getPresent().get(i));
         }
         int size = chocolateGift.size();
         if (size == 0)
-            System.out.println("Печенья нет");
+            System.out.println("Шоколада нет");
         else {
             for (All all : chocolateGift) {
                 if (!name.contains(all.getName())) {
@@ -67,7 +68,7 @@ public class Chocolate extends All implements Serializable {
                 } else
                     for (int u = 0; u < name.size(); u++)
                         if (name.get(u).equals(all.getName()))
-                            allWeight.set(u, (allWeight.get(u) + all.getAllWeightPresent()));
+                            allWeight.set(u, (allWeight.get(u) + all.getWeight()));
             }
             chocolateGift.clear();
             for (int i = 0; i < name.size(); i++) {
